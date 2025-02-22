@@ -17,7 +17,7 @@ export enum Setor {
 }
 
 @Entity()
-export default class Empresário extends BaseEntity {
+export default class Patrocinador extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,10 +30,10 @@ export default class Empresário extends BaseEntity {
   @Column()
   telefone: number;
 
-  @OneToMany(() => Interesse, (interesse) => interesse.empresário)
+  @OneToMany(() => Interesse, (interesse) => interesse.patrocinador)
   interesses: Interesse[];
 
-  @OneToOne(() => Usuário, (usuário) => usuário.empresário, {
+  @OneToOne(() => Usuário, (usuário) => usuário.patrocinador, {
     onDelete: "CASCADE",
   })
   @JoinColumn()

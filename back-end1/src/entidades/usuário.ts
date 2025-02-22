@@ -8,10 +8,10 @@ import {
 } from "typeorm";
 
 import Maestro from "./maestro";
-import Empresário from "./empresário";
+import Patrocinador from "./patrocinador";
 
 export enum Perfil {
-  EMPRESÁRIO = "empresário",
+  PATROCIONADOR = "patrocinador",
   MAESTRO = "maestro",
 }
 
@@ -64,11 +64,15 @@ export default class Usuário extends BaseEntity {
   @Column({ type: "enum", enum: Cores })
   cor_tema: string;
 
-  @OneToOne(() => Maestro, (maestro) => maestro.usuário)
+  @OneToOne(() => Maestro, (maestro) => maestro.usuário, {
+    onDelete: "CASCADE",
+  })
   maestro: Maestro;
 
-  @OneToOne(() => Empresário, (empresário) => empresário.usuário)
-  empresário: Empresário;
+  @OneToOne(() => Patrocinador, (patrocinador) => patrocinador.usuário, {
+    onDelete: "CASCADE",
+  })
+  patrocinador: Patrocinador;
 
   @CreateDateColumn()
   data_criação: Date;

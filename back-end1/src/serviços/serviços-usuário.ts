@@ -3,10 +3,8 @@ import dotenv from "dotenv";
 import md5 from "md5";
 import { sign } from "jsonwebtoken";
 import Usuário, { Perfil } from "../entidades/usuário";
-import Professor from "../entidades/maestro";
-import Aluno from "../entidades/empresário";
 import Maestro from "../entidades/maestro";
-import Empresário from "../entidades/empresário";
+import Patrocinador from "../entidades/patrocinador";
 dotenv.config();
 
 const SALT = 10;
@@ -15,16 +13,42 @@ const SENHA_JWT = process.env.SENHA_JWT;
 export default class ServiçosUsuário {
   constructor() {}
   static async verificarCpfExistente(request, response) {
+    await ServiçosUsuário.listarTodosUsuários();
     try {
       const cpf_encriptado = md5(request.params.cpf);
       const usuário = await Usuário.findOne(cpf_encriptado);
+      console.log("cpf", cpf_encriptado);
       if (usuário)
-        return response.status(404).json({ erro: "CPF já cadastrado." });
+        return response.status(400).json({ erro: "CPF já cadastrado." });
       else return response.json();
     } catch (error) {
       return response
         .status(500)
         .json({ erro: "Erro BD: verificarCpfCadastrado" });
+    }
+  }
+
+  // ... código existente ...
+
+  static async listarTodosUsuários() {
+    try {
+      const usuários = await Usuário.find();
+      console.log("users:", usuários);
+      console.log("=== Lista de Todos os Usuários ===");
+      // usuários.forEach((usuário, index) => {
+      //   console.log(`\nUsuário ${index + 1}:`);
+      //   console.log(`Nome: ${usuário.nome}`);
+      //   console.log(`CPF: ${usuário.cpf}`);
+      //   console.log(`Perfil: ${usuário.perfil}`);
+      //   console.log(`Email: ${usuário.email}`);
+      //   console.log(`Status: ${usuário.status}`);
+      //   console.log("------------------------");
+      // });
+      // console.log(`Total de usuários: ${usuários.length}`);
+      return usuários;
+    } catch (error) {
+      console.error("Erro ao listar usuários:", error);
+      throw new Error("Erro ao buscar usuários no banco de dados");
     }
   }
 
@@ -37,12 +61,12 @@ export default class ServiçosUsuário {
         });
         if (!maestro) return false;
         return true;
-      case Perfil.EMPRESÁRIO:
-        const empresário = await Empresário.findOne({
+      case Perfil.PATROCIONADOR:
+        const patrocinador = await Patrocinador.findOne({
           where: { usuário: usuário.cpf },
           relations: ["usuário"],
         });
-        if (!empresário) return false;
+        if (!patrocinador) return false;
         return true;
       default:
         return;

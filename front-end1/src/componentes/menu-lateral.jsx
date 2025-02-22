@@ -44,7 +44,7 @@ export default function MenuLateral({ children }) {
     },
   ];
 
-  const opçõesEmpresário = [];
+  const opçõesPatrocinador = [];
   function sairSistema() {
     setUsuárioLogado({});
     navegar("/");
@@ -54,8 +54,8 @@ export default function MenuLateral({ children }) {
     switch (usuárioLogado.perfil) {
       case "maestro":
         return opçõesMaestro;
-      case "empresário":
-        return opçõesEmpresário;
+      case "patrocinador":
+        return opçõesPatrocinador;
       default:
         return;
     }

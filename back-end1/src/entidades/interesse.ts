@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import Proposta from "./proposta";
-import Empresário from "./empresário";
+import Patrocinador from "./patrocinador";
 
 //corrigir os atributos
 @Entity()
@@ -29,8 +29,8 @@ export default class Interesse extends BaseEntity {
   })
   proposta: Proposta;
 
-  @ManyToOne(() => Empresário, (empresário) => empresário.interesses, {
+  @ManyToOne(() => Patrocinador, (patrocinador) => patrocinador.interesses, {
     onDelete: "CASCADE",
   })
-  empresário: Empresário;
+  patrocinador: Patrocinador;
 }
