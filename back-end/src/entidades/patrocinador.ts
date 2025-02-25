@@ -27,7 +27,7 @@ export default class Patrocinador extends BaseEntity {
   tipo: Tipo;
 
   @Column()
-  telefone: number;
+  telefone: string;
 
   @OneToMany(() => Patrocínio, (patrocínio) => patrocínio.patrocinador)
   patrocínios: Patrocínio[];

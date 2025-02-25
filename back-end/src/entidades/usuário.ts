@@ -11,7 +11,7 @@ import Maestro from "./maestro";
 import Patrocinador from "./patrocinador";
 
 export enum Perfil {
-  PATROCIONADOR = "patrocinador",
+  PATROCINADOR = "patrocinador",
   MAESTRO = "maestro",
 }
 

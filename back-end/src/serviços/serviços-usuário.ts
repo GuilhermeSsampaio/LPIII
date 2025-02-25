@@ -61,7 +61,7 @@ export default class ServiçosUsuário {
         });
         if (!maestro) return false;
         return true;
-      case Perfil.PATROCIONADOR:
+      case Perfil.PATROCINADOR:
         const patrocinador = await Patrocinador.findOne({
           where: { usuário: usuário.cpf },
           relations: ["usuário"],

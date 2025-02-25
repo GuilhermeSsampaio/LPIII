@@ -34,7 +34,7 @@ export default class Maestro extends BaseEntity {
   @Column()
   anos_experiência: number;
 
-  @Column()
+  @Column({ type: "enum", enum: Estilo })
   estilo: Estilo;
 
   @OneToMany(() => PeçaMusical, (peça_musical) => peça_musical.maestro)

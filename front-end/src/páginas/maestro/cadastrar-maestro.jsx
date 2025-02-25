@@ -46,10 +46,10 @@ export default function CadastrarMaestro() {
     { label: "Brasileiro", value: "brasileiro" },
   ];
 
-  const opçõesEspecialidade = [
-    { label: "Clássico", value: "clássico" },
-    { label: "Jazz", value: "jazz" },
-    { label: "Pop", value: "pop" },
+  const opçõesEstilo = [
+    { label: "Moderno", value: "moderno" },
+    { label: "Barroco", value: "barroco" },
+    { label: "Romântico", value: "romântico" },
     { label: "Contemporâneo", value: "contemporaneo" },
   ];
 
@@ -79,7 +79,7 @@ export default function CadastrarMaestro() {
           usuário_info: usuárioLogado,
           nacionalidade: dados.nacionalidade,
           anos_experiência: dados.anos_experiência,
-          especialidade: dados.especialidade,
+          estilo: dados.estilo,
         });
 
         if (response.data)
@@ -133,7 +133,7 @@ export default function CadastrarMaestro() {
             ...dados,
             nacionalidade: response.data.nacionalidade,
             anos_experiência: response.data.anos_experiência,
-            especialidade: response.data.especialidade,
+            estilo: response.data.estilo,
           }));
         }
       } catch (error) {
@@ -161,6 +161,7 @@ export default function CadastrarMaestro() {
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
             Titulação*:
           </label>
+          <br />
           <Dropdown
             name="nacionalidade"
             className={estilizarDropdown(
@@ -172,15 +173,12 @@ export default function CadastrarMaestro() {
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
-          {/* criar o dropdown da especialidade também */}
+          <br />
           <Dropdown
-            name="especialidade"
-            className={estilizarDropdown(
-              erros.especialidade,
-              usuárioLogado.cor_tema
-            )}
-            value={dados.especialidade}
-            options={opçõesEspecialidade}
+            name="estilo"
+            className={estilizarDropdown(erros.estilo, usuárioLogado.cor_tema)}
+            value={dados.estilo}
+            options={opçõesEstilo}
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
@@ -188,7 +186,7 @@ export default function CadastrarMaestro() {
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Anos de Experiência Empresarial*:
+            Anos de Experiência*:
           </label>
           <InputNumber
             name="anos_experiência"
