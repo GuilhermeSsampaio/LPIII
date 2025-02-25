@@ -6,30 +6,27 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import Proposta from "./proposta";
+import PeçaMusical from "./peça-musical";
 import Patrocinador from "./patrocinador";
 
 //corrigir os atributos
 @Entity()
-export default class Interesse extends BaseEntity {
+export default class Patrocínio extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @CreateDateColumn()
-  data_manifestação: Date;
-
-  @Column()
-  justificativa: string;
 
   @Column()
   orçamento_disponível: number;
 
-  @ManyToOne(() => Proposta, (proposta) => proposta.interesses, {
+  @CreateDateColumn()
+  data_possível: Date;
+
+  @ManyToOne(() => PeçaMusical, (peça_musical) => peça_musical, {
     onDelete: "CASCADE",
   })
-  proposta: Proposta;
+  peça_musical: PeçaMusical;
 
-  @ManyToOne(() => Patrocinador, (patrocinador) => patrocinador.interesses, {
+  @ManyToOne(() => Patrocinador, (patrocinador) => patrocinador.patrocínios, {
     onDelete: "CASCADE",
   })
   patrocinador: Patrocinador;

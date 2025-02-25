@@ -8,12 +8,11 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import Usuário from "./usuário";
-import Interesse from "./interesse";
+import Patrocínio from "./patrocínio";
 // corrigir os atributos
-export enum Setor {
-  Ev = "Eventos",
-  PB = "Publicidade",
-  ET = "Entretenimento",
+export enum Tipo {
+  PF = "PESSOA_FÍSICA",
+  EP = "EMPRESA",
 }
 
 @Entity()
@@ -22,16 +21,16 @@ export default class Patrocinador extends BaseEntity {
   id: number;
 
   @Column()
-  empresa: string;
+  email: string;
 
-  @Column({ type: "enum", enum: Setor })
-  curso: Setor;
+  @Column({ type: "enum", enum: Tipo })
+  tipo: Tipo;
 
   @Column()
   telefone: number;
 
-  @OneToMany(() => Interesse, (interesse) => interesse.patrocinador)
-  interesses: Interesse[];
+  @OneToMany(() => Patrocínio, (patrocínio) => patrocínio.patrocinador)
+  patrocínios: Patrocínio[];
 
   @OneToOne(() => Usuário, (usuário) => usuário.patrocinador, {
     onDelete: "CASCADE",

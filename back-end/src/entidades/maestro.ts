@@ -9,17 +9,17 @@ import {
 } from "typeorm";
 
 import Usuário from "./usuário";
-import Proposta from "./proposta";
+import PeçaMusical from "./peça-musical";
 
 export enum Nacionalidade {
   MESTRADO = "mestrado",
   DOUTORADO = "doutorado",
 }
 
-export enum Especialidade {
-  Clássico = "clássico",
-  Pop = "pop",
-  Jazz = "Jazz",
+export enum Estilo {
+  Moderno = "moderno",
+  Barroco = "barroco",
+  Romântico = "romântico",
   Contemporâneo = "contemporâneo",
 }
 
@@ -35,10 +35,10 @@ export default class Maestro extends BaseEntity {
   anos_experiência: number;
 
   @Column()
-  especialidade: Especialidade;
+  estilo: Estilo;
 
-  @OneToMany(() => Proposta, (proposta) => proposta.maestro)
-  propostas: Proposta[];
+  @OneToMany(() => PeçaMusical, (peça_musical) => peça_musical.maestro)
+  peças_musicais: PeçaMusical[];
 
   @OneToOne(() => Usuário, (usuário) => usuário.maestro, {
     onDelete: "CASCADE",

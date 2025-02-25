@@ -7,7 +7,7 @@ export default class ServiçosMaestro {
   constructor() {}
   static async cadastrarMaestro(request, response) {
     try {
-      const { usuário_info, nacionalidade, anos_experiência, especialidade } =
+      const { usuário_info, nacionalidade, anos_experiência, estilo } =
         request.body;
       const { usuário, token } = await ServiçosUsuário.cadastrarUsuário(
         usuário_info
@@ -19,7 +19,7 @@ export default class ServiçosMaestro {
           usuário,
           nacionalidade,
           anos_experiência,
-          especialidade,
+          estilo,
         });
         await transactionManager.save(maestro);
         await transactionManager.update(Usuário, usuário.cpf, {
@@ -45,7 +45,7 @@ export default class ServiçosMaestro {
         email: maestro.usuário.email,
         nacionalidade: maestro.nacionalidade,
         anos_experiência: maestro.anos_experiência,
-        especialidade: maestro.especialidade,
+        estilo: maestro.estilo,
       });
     } catch (error) {
       return response.status(500).json({ erro: "Erro BD : buscarMaestro" });
