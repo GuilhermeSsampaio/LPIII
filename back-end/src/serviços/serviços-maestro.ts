@@ -7,7 +7,7 @@ export default class ServiçosMaestro {
   constructor() {}
   static async cadastrarMaestro(request, response) {
     try {
-      const { usuário_info, titulação, anos_experiência, especialidade } =
+      const { usuário_info, nacionalidade, anos_experiência, especialidade } =
         request.body;
       const { usuário, token } = await ServiçosUsuário.cadastrarUsuário(
         usuário_info
@@ -17,7 +17,7 @@ export default class ServiçosMaestro {
         await transactionManager.save(usuário);
         const maestro = Maestro.create({
           usuário,
-          titulação,
+          nacionalidade,
           anos_experiência,
           especialidade,
         });
@@ -43,7 +43,7 @@ export default class ServiçosMaestro {
       return response.json({
         nome: maestro.usuário.nome,
         email: maestro.usuário.email,
-        titulação: maestro.titulação,
+        nacionalidade: maestro.nacionalidade,
         anos_experiência: maestro.anos_experiência,
         especialidade: maestro.especialidade,
       });

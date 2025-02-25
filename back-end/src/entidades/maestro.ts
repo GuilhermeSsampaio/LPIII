@@ -11,7 +11,7 @@ import {
 import Usuário from "./usuário";
 import Proposta from "./proposta";
 
-export enum Titulação {
+export enum Nacionalidade {
   MESTRADO = "mestrado",
   DOUTORADO = "doutorado",
 }
@@ -28,8 +28,8 @@ export default class Maestro extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "enum", enum: Titulação })
-  titulação: Titulação;
+  @Column({ type: "enum", enum: Nacionalidade })
+  nacionalidade: Nacionalidade;
 
   @Column()
   anos_experiência: number;

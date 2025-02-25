@@ -22,7 +22,7 @@ Propostas Musicais para Eventos
 
 - **Usuário**
   - Atributos: cpf, nome, email, perfil, status, senha, questão, resposta, cor_tema
-  - Maestro: titulação, anos_experiência, especialidade, propostas, usuário
+  - Maestro: nacionalidade, anos_experiência, especialidade, propostas, usuário
   - Empresário: empresa, setor, telefone, interesses, usuário
 - **Proposta**
   - Atributos: id, título, categoria, repertório, data_proposta, descrição, orçamento_estimado, maestro, interesses

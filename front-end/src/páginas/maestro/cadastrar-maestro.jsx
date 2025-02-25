@@ -34,16 +34,16 @@ export default function CadastrarMaestro() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
-    titulação: "",
+    nacionalidade: "",
     anos_experiência: "",
   });
   const [erros, setErros] = useState({});
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
 
-  const opçõesTitulação = [
-    { label: "Mestrado", value: "mestrado" },
-    { label: "Doutorado", value: "doutorado" },
+  const opçõesNacionalidade = [
+    { label: "Estrangeiro", value: "estrangeiro" },
+    { label: "Brasileiro", value: "brasileiro" },
   ];
 
   const opçõesEspecialidade = [
@@ -77,7 +77,7 @@ export default function CadastrarMaestro() {
         const response = await serviçoCadastrarMaestro({
           ...dados,
           usuário_info: usuárioLogado,
-          titulação: dados.titulação,
+          nacionalidade: dados.nacionalidade,
           anos_experiência: dados.anos_experiência,
           especialidade: dados.especialidade,
         });
@@ -131,7 +131,7 @@ export default function CadastrarMaestro() {
         if (!desmontado && response.data) {
           setDados((dados) => ({
             ...dados,
-            titulação: response.data.titulação,
+            nacionalidade: response.data.nacionalidade,
             anos_experiência: response.data.anos_experiência,
             especialidade: response.data.especialidade,
           }));
@@ -162,13 +162,13 @@ export default function CadastrarMaestro() {
             Titulação*:
           </label>
           <Dropdown
-            name="titulação"
+            name="nacionalidade"
             className={estilizarDropdown(
-              erros.titulação,
+              erros.nacionalidade,
               usuárioLogado.cor_tema
             )}
-            value={dados.titulação}
-            options={opçõesTitulação}
+            value={dados.nacionalidade}
+            options={opçõesNacionalidade}
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
@@ -184,7 +184,7 @@ export default function CadastrarMaestro() {
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
-          <MostrarMensagemErro mensagem={erros.titulação} />
+          <MostrarMensagemErro mensagem={erros.nacionalidade} />
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
