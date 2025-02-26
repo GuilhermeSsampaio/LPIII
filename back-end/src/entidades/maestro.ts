@@ -11,16 +11,14 @@ import {
 import Usuário from "./usuário";
 import PeçaMusical from "./peça-musical";
 
-export enum Nacionalidade {
-  MESTRADO = "mestrado",
-  DOUTORADO = "doutorado",
+export enum Estilo {
+  SIMPLES = "simples",
+  ELEGANTE = "elegante",
 }
 
-export enum Estilo {
-  Moderno = "moderno",
-  Barroco = "barroco",
-  Romântico = "romântico",
-  Contemporâneo = "contemporâneo",
+export enum Nacionalidade {
+  BRASILEIRO = "brasileiro",
+  ESTRANGEIRO = "estrangeiro",
 }
 
 @Entity()
@@ -28,14 +26,14 @@ export default class Maestro extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "enum", enum: Nacionalidade })
-  nacionalidade: Nacionalidade;
+  @Column({ type: "enum", enum: Estilo })
+  estilo: Estilo;
 
   @Column()
   anos_experiência: number;
 
-  @Column({ type: "enum", enum: Estilo })
-  estilo: Estilo;
+  @Column({ type: "enum", enum: Nacionalidade })
+  nacionalidade: Nacionalidade;
 
   @OneToMany(() => PeçaMusical, (peça_musical) => peça_musical.maestro)
   peças_musicais: PeçaMusical[];
