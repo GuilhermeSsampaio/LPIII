@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { Card } from "primereact/card";
 import { Image } from "primereact/image";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-import imge from "../../imagens/image.png";
+// import imge from "../../imagens/image.png";
+import imge from "../../imagens/img.png";
 import {
   estilizarCard,
   estilizarCardHeaderCentralizado,
@@ -23,7 +24,12 @@ export default function PáginaInicial() {
         header={HeaderCentralizado}
         className={estilizarCard(usuárioLogado.cor_tema)}
       >
-        <Image src={imge} alt="Venha fazer a diferença!" width={1100} />
+        <Image
+          src={imge}
+          alt="Venha fazer a diferença!"
+          width={900}
+          height={500}
+        />
       </Card>
     </div>
   );

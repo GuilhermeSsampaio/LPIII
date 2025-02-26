@@ -34,23 +34,22 @@ export default function CadastrarMaestro() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
-    nacionalidade: "",
+    estilo: "",
     anos_experiência: "",
+    nacionalidade: "",
   });
   const [erros, setErros] = useState({});
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
 
-  const opçõesNacionalidade = [
-    { label: "Estrangeiro", value: "estrangeiro" },
-    { label: "Brasileiro", value: "brasileiro" },
+  const opçõesEstilo = [
+    { label: "Elegante", value: "elegante" },
+    { label: "Simples", value: "simples" },
   ];
 
-  const opçõesEstilo = [
-    { label: "Moderno", value: "moderno" },
-    { label: "Barroco", value: "barroco" },
-    { label: "Romântico", value: "romântico" },
-    { label: "Contemporâneo", value: "contemporaneo" },
+  const opçõesNacionalidade = [
+    { label: "Brasileiro", value: "brasileiro" },
+    { label: "Estrangeiro", value: "estrangeiro" },
   ];
 
   function alterarEstado(event) {
@@ -77,9 +76,9 @@ export default function CadastrarMaestro() {
         const response = await serviçoCadastrarMaestro({
           ...dados,
           usuário_info: usuárioLogado,
-          nacionalidade: dados.nacionalidade,
-          anos_experiência: dados.anos_experiência,
           estilo: dados.estilo,
+          anos_experiência: dados.anos_experiência,
+          nacionalidade: dados.nacionalidade,
         });
 
         if (response.data)
@@ -131,9 +130,9 @@ export default function CadastrarMaestro() {
         if (!desmontado && response.data) {
           setDados((dados) => ({
             ...dados,
-            nacionalidade: response.data.nacionalidade,
-            anos_experiência: response.data.anos_experiência,
             estilo: response.data.estilo,
+            anos_experiência: response.data.anos_experiência,
+            nacionalidade: response.data.nacionalidade,
           }));
         }
       } catch (error) {
@@ -159,9 +158,19 @@ export default function CadastrarMaestro() {
       >
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Titulação*:
+            Estilo*:
           </label>
-          <br />
+          <Dropdown
+            name="estilo"
+            className={estilizarDropdown(erros.estilo, usuárioLogado.cor_tema)}
+            value={dados.estilo}
+            options={opçõesEstilo}
+            onChange={alterarEstado}
+            placeholder="-- Selecione --"
+          />
+          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+            Nacionalidade*:
+          </label>
           <Dropdown
             name="nacionalidade"
             className={estilizarDropdown(
@@ -173,20 +182,11 @@ export default function CadastrarMaestro() {
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
-          <br />
-          <Dropdown
-            name="estilo"
-            className={estilizarDropdown(erros.estilo, usuárioLogado.cor_tema)}
-            value={dados.estilo}
-            options={opçõesEstilo}
-            onChange={alterarEstado}
-            placeholder="-- Selecione --"
-          />
-          <MostrarMensagemErro mensagem={erros.nacionalidade} />
+          <MostrarMensagemErro mensagem={erros.estilo} />
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Anos de Experiência*:
+            Anos de Experiência Empresarial*:
           </label>
           <InputNumber
             name="anos_experiência"
