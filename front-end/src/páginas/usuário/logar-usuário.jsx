@@ -68,7 +68,7 @@ export default function LogarUsuário() {
   return (
     <div className={estilizarPáginaÚnica()}>
       <Toast ref={referênciaToast} position="bottom-center" />
-      <h1 className={estilizarLogo()}>Propostas de Apresentações Musicais</h1>
+      <h1 className={estilizarLogo()}>Patrocínios para Peças musicais</h1>
       <Card title="Login" className={estilizarCard()}>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel()}>Usuário</label>

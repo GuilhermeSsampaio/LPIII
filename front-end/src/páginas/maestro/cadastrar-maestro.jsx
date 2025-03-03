@@ -168,6 +168,11 @@ export default function CadastrarMaestro() {
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
+
+          <MostrarMensagemErro mensagem={erros.estilo} />
+        </div>
+        <br />
+        <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
             Nacionalidade*:
           </label>
@@ -182,7 +187,7 @@ export default function CadastrarMaestro() {
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
-          <MostrarMensagemErro mensagem={erros.estilo} />
+          <MostrarMensagemErro mensagem={erros.nacionalidade} />
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
