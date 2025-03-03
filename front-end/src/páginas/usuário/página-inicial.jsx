@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Card } from "primereact/card";
 import { Image } from "primereact/image";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-// import imge from "../../imagens/image.png";
 import imge from "../../imagens/img.png";
 import {
   estilizarCard,
@@ -14,7 +13,7 @@ export default function PáginaInicial() {
   function HeaderCentralizado() {
     return (
       <div className={estilizarCardHeaderCentralizado()}>
-        Propostas de Apresentações Musicais
+        Patrocínios para Peças musicais
       </div>
     );
   }
@@ -26,7 +25,7 @@ export default function PáginaInicial() {
       >
         <Image
           src={imge}
-          alt="Venha fazer a diferença!"
+          alt="Venha curtir uma música!"
           width={900}
           height={500}
         />

@@ -100,7 +100,6 @@ export default class ServiçosUsuário {
         SENHA_JWT,
         { subject: usuário.nome, expiresIn: "1d" }
       );
-      //verificar se o usuário est certo
       return response.json({
         usuárioLogado: {
           nome: usuário.nome,
@@ -121,6 +120,8 @@ export default class ServiçosUsuário {
     try {
       const { cpf, nome, perfil, email, senha, questão, resposta, cor_tema } =
         usuário_informado;
+      console.log("ServiçosUsuário.cadastrarUsuário:nome -- " + nome);
+      console.log(JSON.parse(JSON.stringify(usuário_informado)));
       const cpf_encriptado = md5(cpf);
       const senha_encriptada = await bcrypt.hash(senha, SALT);
       const resposta_encriptada = await bcrypt.hash(resposta, SALT);

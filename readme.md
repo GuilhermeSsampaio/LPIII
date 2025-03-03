@@ -1,57 +1,56 @@
 ## Trabalho de LPIII
 
-### Projeto: Propostas de Apresentações Musicais
+### Projeto: Patrocínios para Peças Musicais
 
 **Linguagem de Programação III – Guilherme Silva Sampaio**
 
 ### Título do Projeto
 
-Propostas Musicais para Eventos
+Patrocínios para Peças Musicais
 
 ### Entidades e Relacionamentos
 
 - **Usuário**
   - Maestro (proponente)
-  - Empresário (interessado)
+  - Patrocinador (interessado)
 - **Relacionamentos**
-  - Maestro [1:n] Proposta
-  - Empresário [1:n] Interesse
-  - Interesse : Empresário - Proposta
+  - Maestro [1:n] PeçaMusical
+  - Patrocinador [1:n] Patrocínio
+  - Patrocínio : Patrocinador - PeçaMusical
 
 ### Entidades, Atributos e Referências
 
 - **Usuário**
   - Atributos: cpf, nome, email, perfil, status, senha, questão, resposta, cor_tema
-  - Maestro: nacionalidade, anos_experiência, especialidade, propostas, usuário
-  - Empresário: empresa, setor, telefone, interesses, usuário
-- **Proposta**
-  - Atributos: id, título, categoria, repertório, data_proposta, descrição, orçamento_estimado, maestro, interesses
-- **Interesse**
-  - Atributos: id, data_manifestação, justificativa, orçamento_disponível, proposta, empresário
+  - Maestro: nacionalidade, anos_experiência, estilo, peças_musicais, usuário
+  - Patrocinador: email, tipo, telefone, patrocínios, usuário
+- **PeçaMusical**
+  - Atributos: id, título, duração, tom, gênero, maestro, patrocínios
+- **Patrocínio**
+  - Atributos: id, orçamento_disponível, data_possível, peça_musical, patrocinador
 
 ### Enumerados
 
 - **Usuário**
-  - Perfil: maestro, empresário
+  - Perfil: maestro, patrocinador
   - Status: ativo, inativo, pendente
   - Cores: amarelo, anil, azul, azul_piscina, cinza_escuro, laranja, rosa, roxo, verde, verde_azulado
 - **Maestro**
-  - Titulação: doutorado, mestrado
-  - Especialidade: clássico, jazz, pop, contemporâneo
-- **Empresário**
-  - Setor: eventos, publicidade, entretenimento
-- **Proposta**
-  - Categoria: concerto, show, festival
-  - Repertório: clássico, popular, misto
+  - Nacionalidade: brasileiro, estrangeiro
+  - Estilo: simples, elegante
+- **Patrocinador**
+  - Tipo: pessoa_física, empresa
+- **PeçaMusical**
+  - Estilo: rock, pop, clássica
 
 ### Filtros: Administrar e Pesquisar
 
 - **Maestro**
-  - Administrar Propostas: título, categoria, repertório, orçamento_estimado
-  - Pesquisar Interesses: nome_empresário, título_proposta, categoria_proposta, orçamento_disponível
-- **Empresário**
-  - Administrar Interesses: nome_maestro, categoria_proposta, título_proposta, orçamento_estimado
-  - Pesquisar Propostas: nome_maestro, título, categoria, repertório, orçamento_estimado
+  - Administrar Peças Musicais: título, categoria, repertório, orçamento_estimado
+  - Pesquisar Patrocínios: nome_patrocinador, título_proposta, categoria_proposta, orçamento_disponível
+- **Patrocinador**
+  - Administrar Patrocínios: nome_maestro, categoria_proposta, título_proposta, orçamento_estimado
+  - Pesquisar Peças Musicais: nome_maestro, título, categoria, repertório, orçamento_estimado
 
 ## Rodar o projeto
 

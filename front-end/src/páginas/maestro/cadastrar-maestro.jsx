@@ -186,7 +186,7 @@ export default function CadastrarMaestro() {
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Anos de Experiência Empresarial*:
+            Anos de Experiência na música*:
           </label>
           <InputNumber
             name="anos_experiência"
