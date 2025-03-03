@@ -9,11 +9,6 @@ import {
 } from "typeorm";
 import Usuário from "./usuário";
 import Patrocínio from "./patrocínio";
-// corrigir os atributos
-export enum Tipo {
-  PF = "PESSOA_FÍSICA",
-  EP = "EMPRESA",
-}
 
 @Entity()
 export default class Patrocinador extends BaseEntity {
@@ -22,9 +17,6 @@ export default class Patrocinador extends BaseEntity {
 
   @Column()
   email: string;
-
-  @Column({ type: "enum", enum: Tipo })
-  tipo: Tipo;
 
   @Column()
   telefone: string;
