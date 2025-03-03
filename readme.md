@@ -27,7 +27,7 @@ Patrocínios para Peças Musicais
 - **PeçaMusical**
   - Atributos: id, título, duração, tom, gênero, maestro, patrocínios
 - **Patrocínio**
-  - Atributos: id, orçamento_disponível, data_possível, peça_musical, patrocinador
+  - Atributos: id, orçamento_disponível, data_proposta, peça_musical, patrocinador
 
 ### Enumerados
 
