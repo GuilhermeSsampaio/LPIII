@@ -11,6 +11,12 @@ import {
   estilizarLabel,
   estilizarModal,
 } from "../../utilitários/estilos";
+import {
+  serviçoAlterarUsuário,
+  serviçoRemoverUsuário,
+} from "../../serviços/serviços-usuário";
+import mostrarToast from "../../utilitários/mostrar-toast";
+
 export default function ModalConfirmaçãoUsuário() {
   const referênciaToast = useRef(null);
   const {
@@ -18,6 +24,7 @@ export default function ModalConfirmaçãoUsuário() {
     confirmaçãoUsuário,
     setConfirmaçãoUsuário,
     setMostrarModalConfirmação,
+    usuárioLogado,
   } = useContext(ContextoUsuário);
   const dados = {
     cpf: confirmaçãoUsuário?.cpf,
@@ -29,20 +36,28 @@ export default function ModalConfirmaçãoUsuário() {
     resposta: confirmaçãoUsuário?.resposta,
     cor_tema: confirmaçãoUsuário?.cor_tema,
   };
-  const [redirecionar] = useState(false);
+  const [redirecionar, setRedirecionar] = useState(false);
+
   const navegar = useNavigate();
   function labelOperação() {
     switch (confirmaçãoUsuário?.operação) {
       case "salvar":
         return "Salvar";
+      case "alterar":
+        return "Alterar";
+      case "remover":
+        return "Remover";
       default:
         return;
     }
   }
+
   function exibirPerfilFormatado() {
     switch (dados.perfil) {
       case "maestro":
         return "Maestro";
+      case "patrocinador":
+        return "Patrocinador";
       default:
         return "";
     }
@@ -60,17 +75,65 @@ export default function ModalConfirmaçãoUsuário() {
       setUsuárioLogado({ ...dados, cadastrado: false });
       setMostrarModalConfirmação(false);
       navegar("../cadastrar-maestro");
+    } else if (dados.perfil === "patrocinador") {
+      setUsuárioLogado({ ...dados, cadastrado: false });
+      setMostrarModalConfirmação(false);
+      navegar("../cadastrar-patrocinador");
     }
   }
+  async function alterarUsuário(dadosAlterados) {
+    try {
+      const response = await serviçoAlterarUsuário({
+        ...dadosAlterados,
+        cpf: usuárioLogado.cpf,
+      });
+      setUsuárioLogado({ ...usuárioLogado, ...response.data });
+      setRedirecionar(true);
+      mostrarToast(
+        referênciaToast,
+        "Alterado com sucesso! Redirecionando à Página Inicial...",
+        "sucesso"
+      );
+    } catch (error) {
+      mostrarToast(referênciaToast, error.response.data.erro, "erro");
+    }
+  }
+  async function removerUsuário() {
+    try {
+      await serviçoRemoverUsuário(usuárioLogado.cpf);
+      setRedirecionar(true);
+      mostrarToast(
+        referênciaToast,
+        "Removido com sucesso! Redirecionando ao Login.",
+        "sucesso"
+      );
+    } catch (error) {
+      mostrarToast(referênciaToast, error.response.data.erro, "erro");
+    }
+  }
+
   function executarOperação() {
     switch (confirmaçãoUsuário.operação) {
       case "salvar":
         finalizarCadastro();
         break;
+      case "alterar":
+        alterarUsuário({
+          email: dados.email,
+          senha: dados.senha,
+          questão: dados.questão,
+          resposta: dados.resposta,
+          cor_tema: dados.cor_tema,
+        });
+        break;
+      case "remover":
+        removerUsuário();
+        break;
       default:
         break;
     }
   }
+
   function ocultar() {
     if (!redirecionar) {
       setConfirmaçãoUsuário({});

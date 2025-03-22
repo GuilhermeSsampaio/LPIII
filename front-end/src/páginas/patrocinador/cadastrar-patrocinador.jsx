@@ -4,14 +4,16 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from "primereact/inputnumber";
+import { InputMask } from "primereact/inputmask";
+import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
+import { ANO_MÁSCARA, TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
 import {
-  serviçoCadastrarMaestro,
-  serviçoBuscarMaestro,
-  serviçoAtualizarMaestro,
-} from "../../serviços/serviços-maestro";
+  serviçoCadastrarPatrocinador,
+  serviçoAtualizarPatrocinador,
+  serviçoBuscarPatrocinador,
+} from "../../serviços/serviços-patrocinador";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import {
   MostrarMensagemErro,
@@ -19,6 +21,7 @@ import {
   validarCamposObrigatórios,
 } from "../../utilitários/validações";
 import {
+  TAMANHOS,
   estilizarBotão,
   estilizarBotãoRetornar,
   estilizarCard,
@@ -27,71 +30,53 @@ import {
   estilizarDropdown,
   estilizarFlex,
   estilizarInlineFlex,
-  estilizarInputNumber,
+  estilizarInputMask,
+  estilizarInputText,
   estilizarLabel,
 } from "../../utilitários/estilos";
-
-export default function CadastrarMaestro() {
+export default function CadastrarPatrocinador() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
-    estilo: "",
-    anos_experiência: "",
-    nacionalidade: "",
+    email: "",
+    telefone: "",
   });
   const [erros, setErros] = useState({});
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
-
-  const opçõesEstilo = [
-    { label: "Elegante", value: "elegante" },
-    { label: "Simples", value: "simples" },
-  ];
-
-  const opçõesNacionalidade = [
-    { label: "Brasileiro", value: "brasileiro" },
-    { label: "Estrangeiro", value: "estrangeiro" },
-  ];
-
   function alterarEstado(event) {
     const chave = event.target.name || event.value;
     const valor = event.target.value;
     setDados({ ...dados, [chave]: valor });
   }
-
   function validarCampos() {
     let errosCamposObrigatórios;
     errosCamposObrigatórios = validarCamposObrigatórios(dados);
     setErros(errosCamposObrigatórios);
     return checarListaVazia(errosCamposObrigatórios);
   }
-
   function títuloFormulário() {
-    if (usuárioLogado?.cadastrado) return "Consultar Maestro";
-    else return "Alterar Maestro";
+    if (usuárioLogado?.cadastrado) return "Alterar Patrocinador";
+    else return "Cadastrar Patrocinador";
   }
-
-  async function cadastrarMaestro() {
+  async function cadastrarPatrocinador() {
     if (validarCampos()) {
       try {
-        const response = await serviçoCadastrarMaestro({
+        const response = await serviçoCadastrarPatrocinador({
           ...dados,
           usuário_info: usuárioLogado,
-          estilo: dados.estilo,
-          anos_experiência: dados.anos_experiência,
-          nacionalidade: dados.nacionalidade,
+          email: dados.email,
+          telefone: dados.telefone,
         });
-
         if (response.data)
           setUsuárioLogado((usuário) => ({
             ...usuário,
             status: response.data.status,
             token: response.data.token,
           }));
-
         mostrarToast(
           referênciaToast,
-          "Maestro cadastrado com sucesso!",
+          "Patrocinador cadastrado com sucesso!",
           "sucesso"
         );
       } catch (error) {
@@ -100,18 +85,17 @@ export default function CadastrarMaestro() {
       }
     }
   }
-
-  async function atualizarMaestro() {
+  async function atualizarPatrocinador() {
     if (validarCampos()) {
       try {
-        const response = await serviçoAtualizarMaestro({
+        const response = await serviçoAtualizarPatrocinador({
           ...dados,
           cpf: usuárioLogado.cpf,
         });
         if (response)
           mostrarToast(
             referênciaToast,
-            "Maestro atualizado com sucesso!",
+            "Patrocinador atualizado com sucesso!",
             "sucesso"
           );
       } catch (error) {
@@ -119,17 +103,14 @@ export default function CadastrarMaestro() {
       }
     }
   }
-
   function labelBotãoSalvar() {
     if (usuárioLogado?.cadastrado) return "Alterar";
     else return "Cadastrar";
   }
-
   function açãoBotãoSalvar() {
-    if (usuárioLogado?.cadastrado) atualizarMaestro();
-    else cadastrarMaestro();
+    if (usuárioLogado?.cadastrado) atualizarPatrocinador();
+    else cadastrarPatrocinador();
   }
-
   function redirecionar() {
     if (cpfExistente) {
       setUsuárioLogado(null);
@@ -142,18 +123,16 @@ export default function CadastrarMaestro() {
       navegar("/pagina-inicial");
     }
   }
-
   useEffect(() => {
     let desmontado = false;
-    async function buscarDadosMaestro() {
+    async function buscarDadosPatrocinador() {
       try {
-        const response = await serviçoBuscarMaestro(usuárioLogado.cpf);
+        const response = await serviçoBuscarPatrocinador(usuárioLogado.cpf);
         if (!desmontado && response.data) {
           setDados((dados) => ({
             ...dados,
-            estilo: response.data.estilo,
-            anos_experiência: response.data.anos_experiência,
-            nacionalidade: response.data.nacionalidade,
+            email: response.data.email,
+            telefone: response.data.telefone,
           }));
         }
       } catch (error) {
@@ -161,11 +140,9 @@ export default function CadastrarMaestro() {
         if (erro) mostrarToast(referênciaToast, erro, "erro");
       }
     }
-
-    if (usuárioLogado?.cadastrado) buscarDadosMaestro();
+    if (usuárioLogado?.cadastrado) buscarDadosPatrocinador();
     return () => (desmontado = true);
   }, [usuárioLogado?.cadastrado, usuárioLogado.cpf]);
-
   return (
     <div className={estilizarFlex()}>
       <Toast
@@ -179,53 +156,39 @@ export default function CadastrarMaestro() {
       >
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Estilo*:
+            Curso*:
           </label>
-          <Dropdown
-            name="estilo"
-            className={estilizarDropdown(erros.estilo, usuárioLogado.cor_tema)}
-            value={dados.estilo}
-            options={opçõesEstilo}
+          <MostrarMensagemErro mensagem={erros.curso} />
+        </div>
+
+        <div className={estilizarDivCampo()}>
+          <label className={estilizarLabel(dados.cor_tema)}>Email*:</label>
+          <InputText
+            name="email"
+            className={estilizarInputText(erros.email, 400, dados.cor_tema)}
+            value={dados.email}
             onChange={alterarEstado}
-            placeholder="-- Selecione --"
           />
 
-          <MostrarMensagemErro mensagem={erros.estilo} />
+          <MostrarMensagemErro mensagem={erros.email} />
         </div>
-        <br />
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Nacionalidade*:
+            Telefone*:
           </label>
-          <Dropdown
-            name="nacionalidade"
-            className={estilizarDropdown(
-              erros.nacionalidade,
-              usuárioLogado.cor_tema
-            )}
-            value={dados.nacionalidade}
-            options={opçõesNacionalidade}
+          <InputMask
+            name="telefone"
+            autoClear
+            size={TAMANHOS.TELEFONE}
             onChange={alterarEstado}
-            placeholder="-- Selecione --"
-          />
-          <MostrarMensagemErro mensagem={erros.nacionalidade} />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Anos de Experiência na música*:
-          </label>
-          <InputNumber
-            name="anos_experiência"
-            size={5}
-            value={dados.anos_experiência}
-            onValueChange={alterarEstado}
-            mode="decimal"
-            inputClassName={estilizarInputNumber(
-              erros.anos_experiência,
+            className={estilizarInputMask(
+              erros.telefone,
               usuárioLogado.cor_tema
             )}
+            mask={TELEFONE_MÁSCARA}
+            value={dados.telefone}
           />
-          <MostrarMensagemErro mensagem={erros.anos_experiência} />
+          <MostrarMensagemErro mensagem={erros.telefone} />
         </div>
         <Divider className={estilizarDivider(dados.cor_tema)} />
         <div className={estilizarInlineFlex()}>

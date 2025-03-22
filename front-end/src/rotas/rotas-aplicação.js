@@ -13,12 +13,13 @@ export default function Rotas() {
       <Routes>
         <Route element={<LogarUsuário />} path="/" />
         <Route element={<CadastrarUsuário />} path="criar-usuario" />
+        <Route element={<RecuperarAcesso />} path="recuperar-acesso" />
+
         <Route element={<RotasUsuárioLogado />}>
           <Route element={<PáginaInicial />} path="pagina-inicial" />
           <Route element={<CadastrarUsuário />} path="atualizar-usuario" />
           <Route element={<CadastrarMaestro />} path="cadastrar-maestro" />
 
-          <Route element={<RecuperarAcesso />} path="recuperar-acesso" />
           <Route
             element={<CadastrarPatrocinador />}
             path="cadastrar-patrocinador"

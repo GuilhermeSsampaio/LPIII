@@ -13,3 +13,10 @@ RotasMaestro.get(
   verificarPerfilMaestro,
   ServiçosMaestro.buscarMaestro
 );
+
+RotasMaestro.patch(
+  "/",
+  verificarToken,
+  verificarPerfilMaestro,
+  ServiçosMaestro.atualizarMaestro
+);

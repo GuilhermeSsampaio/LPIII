@@ -27,6 +27,7 @@ import {
   TAMANHOS,
   TEMA_PADRÃO,
   estilizarBotão,
+  estilizarBotãoRemover,
   estilizarCard,
   estilizarDialog,
   estilizarDivBotõesAção,
@@ -157,7 +158,12 @@ export default function CadastrarUsuário() {
 
   function títuloFormulário() {
     if (!usuárioLogado?.perfil) return "Cadastrar Usuário";
-    else return "Consultar Usuário";
+    else return "Alterar Usuário";
+  }
+
+  function validarConfirmarAlteração() {
+    const camposVálidos = validarCampos();
+    if (camposVálidos) confirmarOperação("alterar");
   }
 
   function textoRetorno() {
@@ -206,7 +212,20 @@ export default function CadastrarUsuário() {
         />
       );
     } else {
-      return <div className={estilizarDivBotõesAção()}></div>;
+      return (
+        <div className={estilizarDivBotõesAção()}>
+          <Button
+            className={estilizarBotão(dados.cor_tema)}
+            label="Alterar"
+            onClick={() => validarConfirmarAlteração()}
+          />
+          <Button
+            className={estilizarBotãoRemover(dados.cor_tema)}
+            label="Remover"
+            onClick={() => confirmarOperação("remover")}
+          />
+        </div>
+      );
     }
   }
 

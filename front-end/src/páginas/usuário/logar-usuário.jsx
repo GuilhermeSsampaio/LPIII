@@ -103,7 +103,7 @@ export default function LogarUsuário() {
             label="Login"
             onClick={logarUsuário}
           />
-          <Link className={estilizarLink()} to="/pagina-inicial">
+          <Link className={estilizarLink()} to="/recuperar-acesso">
             Recuperar Acesso de Usuário
           </Link>
           <Link className={estilizarLink()} to="/criar-usuario">

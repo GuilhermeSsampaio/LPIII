@@ -9,6 +9,10 @@ export function ProvedorUsuário({ children }) {
   const [confirmaçãoUsuário, setConfirmaçãoUsuário] = useState(null);
   const [mostrarModalConfirmação, setMostrarModalConfirmação] = useState(false);
 
+  const [cpfVerificado, setCpfVerificado] = useState(null);
+  const [novaSenha, setNovaSenha] = useState({});
+  const [tokenRecuperação, setTokenRecuperação] = useState(null);
+
   return (
     <ContextoUsuário.Provider
       value={{
@@ -18,6 +22,12 @@ export function ProvedorUsuário({ children }) {
         setConfirmaçãoUsuário,
         mostrarModalConfirmação,
         setMostrarModalConfirmação,
+        cpfVerificado,
+        setCpfVerificado,
+        novaSenha,
+        setNovaSenha,
+        tokenRecuperação,
+        setTokenRecuperação,
       }}
     >
       {children}

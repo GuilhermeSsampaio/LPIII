@@ -44,11 +44,29 @@ export default function MenuLateral({ children }) {
     },
   ];
 
-  const opçõesPatrocinador = [];
   function sairSistema() {
     setUsuárioLogado({});
     navegar("/");
   }
+
+  const opçõesPatrocinador = [
+    { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+    {
+      label: "Menu",
+      items: [
+        {
+          label: "Cadastrar Usuário",
+          command: () => navegar("/atualizar-usuario"),
+          disabled: usuárioLogado.status !== "ativo",
+        },
+        {
+          label: "Cadastrar Patrocinador",
+          command: () => navegar("/cadastrar-patrocinador"),
+        },
+        { label: "Sair do Sistema", command: () => sairSistema() },
+      ],
+    },
+  ];
 
   function opçõesMenu() {
     switch (usuárioLogado.perfil) {
