@@ -67,8 +67,7 @@ export default function CadastrarMaestro() {
   }
 
   function títuloFormulário() {
-    if (usuárioLogado?.cadastrado) return "Consultar Maestro";
-    else return "Alterar Maestro";
+    if (usuárioLogado?.cadastrado) return "Alterar Maestro";
   }
 
   async function cadastrarMaestro() {

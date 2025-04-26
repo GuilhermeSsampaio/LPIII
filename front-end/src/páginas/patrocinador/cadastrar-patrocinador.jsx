@@ -155,13 +155,6 @@ export default function CadastrarPatrocinador() {
         className={estilizarCard(usuárioLogado.cor_tema)}
       >
         <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Curso*:
-          </label>
-          <MostrarMensagemErro mensagem={erros.curso} />
-        </div>
-
-        <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(dados.cor_tema)}>Email*:</label>
           <InputText
             name="email"
