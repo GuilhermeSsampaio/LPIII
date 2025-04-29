@@ -3,6 +3,8 @@ import { getManager } from "typeorm";
 import Usuário, { Status } from "../entidades/usuário";
 import ServiçosUsuário from "./serviços-usuário";
 import Maestro from "../entidades/maestro";
+import PeçaMusical from "../entidades/peça-musical";
+
 export default class ServiçosMaestro {
   constructor() {}
   static async cadastrarMaestro(request, response) {
@@ -63,6 +65,103 @@ export default class ServiçosMaestro {
       });
     } catch (error) {
       return response.status(500).json({ erro: "Erro BD : buscarMaestro" });
+    }
+  }
+
+  static async cadastrarPeçaMusical(request, response) {
+    try {
+      const { título, duração, tom, estilo, cpf } = request.body;
+      const cpf_encriptado = md5(cpf);
+      const maestro = await Maestro.findOne({
+        where: { usuário: cpf_encriptado },
+        relations: ["usuário"],
+      });
+      await PeçaMusical.create({
+        título,
+        duração,
+        tom,
+        estilo,
+        maestro,
+      }).save();
+      return response.json();
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : cadastrarPeçaMusical" });
+    }
+  }
+
+  static async alterarPeçaMusical(request, response) {
+    try {
+      const { id, título, duração, tom, estilo } = request.body;
+      await PeçaMusical.update(id, {
+        título,
+        duração,
+        tom,
+        estilo,
+      });
+      return response.json();
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : alterarPeçaMusical" });
+    }
+  }
+
+  static async removerPeçaMusical(request, response) {
+    try {
+      const id_peça = request.params.id;
+      const peçaMusical = await PeçaMusical.findOne(id_peça);
+      await PeçaMusical.remove(peçaMusical);
+      return response.json();
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : removerPeçaMusical" });
+    }
+  }
+
+  static async buscarPeçasMusicaisMaestro(request, response) {
+    try {
+      const cpf_encriptado = md5(request.params.cpf);
+      const peçasMusicais = await PeçaMusical.find({
+        where: { maestro: { usuário: cpf_encriptado } },
+        relations: ["maestro", "maestro.usuário"],
+      });
+      return response.json(peçasMusicais);
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : buscarPeçasMusicaisMaestro" });
+    }
+  }
+
+  static filtrarEstilosEliminandoRepetição(peçasMusicais: PeçaMusical[]) {
+    let estilos: { label: string; value: string }[];
+    estilos = peçasMusicais
+      .filter(
+        (peçaMusical, índice, peças_antes_filtrar) =>
+          peças_antes_filtrar.findIndex(
+            (peça_anterior) => peça_anterior.estilo === peçaMusical.estilo
+          ) === índice
+      )
+      .map((peçaMusical) => ({
+        label: peçaMusical.estilo,
+        value: peçaMusical.estilo,
+      }));
+    return estilos;
+  }
+
+  static async buscarPatrocíniosPeçasMusicais(request, response) {
+    try {
+      const peçasMusicais = await PeçaMusical.find();
+      const estilos =
+        ServiçosMaestro.filtrarEstilosEliminandoRepetição(peçasMusicais);
+      return response.json(estilos.sort());
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ erro: "Erro BD : buscarPatrocíniosPeçasMusicais" });
     }
   }
 }

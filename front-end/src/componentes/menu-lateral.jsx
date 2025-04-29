@@ -39,15 +39,14 @@ export default function MenuLateral({ children }) {
           label: "Cadastrar Maestro",
           command: () => navegar("/cadastrar-maestro"),
         },
+        {
+          label: "Administrar Peças Musicais",
+          command: () => navegar("/administrar-pecas-musicais"),
+        },
         { label: "Sair do Sistema", command: () => sairSistema() },
       ],
     },
   ];
-
-  function sairSistema() {
-    setUsuárioLogado({});
-    navegar("/");
-  }
 
   const opçõesPatrocinador = [
     { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
@@ -63,10 +62,19 @@ export default function MenuLateral({ children }) {
           label: "Cadastrar Patrocinador",
           command: () => navegar("/cadastrar-patrocinador"),
         },
+        {
+          label: "Administrar Patrocínios",
+          command: () => navegar("/administrar-patrocínios"),
+        },
         { label: "Sair do Sistema", command: () => sairSistema() },
       ],
     },
   ];
+
+  function sairSistema() {
+    setUsuárioLogado({});
+    navegar("/");
+  }
 
   function opçõesMenu() {
     switch (usuárioLogado.perfil) {
