@@ -2,21 +2,21 @@ import { createContext, useState } from "react";
 const ContextoPatrocinador = createContext();
 export default ContextoPatrocinador;
 export function ProvedorPatrocinador({ children }) {
-  const [patrocínioConsultado, setpatrocínioConsultado] = useState({});
-  const [peçaMusicalConsultada, setpeçaMusicalConsultada] = useState({});
-  const [peçaMusicalSelecionada, setpeçaMusicalSelecionada] = useState({});
-  const [peçaMusicalpatrocínio, setpeçaMusicalpatrocínio] = useState({});
+  const [patrocínioConsultado, setPatrocínioConsultado] = useState({});
+  const [peçaMusicalConsultada, setPeçaMusicalConsultada] = useState({});
+  const [peçaMusicalSelecionada, setPeçaMusicalSelecionada] = useState({});
+  const [peçaMusicalPatrocínio, setPeçaMusicalPatrocínio] = useState({});
   return (
     <ContextoPatrocinador.Provider
       value={{
         patrocínioConsultado,
-        setpatrocínioConsultado,
+        setPatrocínioConsultado,
         peçaMusicalConsultada,
-        setpeçaMusicalConsultada,
+        setPeçaMusicalConsultada,
         peçaMusicalSelecionada,
-        setpeçaMusicalSelecionada,
-        peçaMusicalpatrocínio,
-        setpeçaMusicalpatrocínio,
+        setPeçaMusicalSelecionada,
+        peçaMusicalPatrocínio,
+        setPeçaMusicalPatrocínio,
       }}
     >
       {children}

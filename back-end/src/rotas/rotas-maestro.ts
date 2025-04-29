@@ -23,32 +23,32 @@ RotasMaestro.patch(
 );
 
 RotasMaestro.post(
-  "/peças-musicais",
+  "/pecas-musicais",
   verificarToken,
   verificarPerfilMaestro,
   ServiçosMaestro.cadastrarPeçaMusical
 );
 RotasMaestro.patch(
-  "/peças-musicais",
+  "/pecas-musicais",
   verificarToken,
   verificarPerfilMaestro,
   ServiçosMaestro.alterarPeçaMusical
 );
 RotasMaestro.delete(
-  "/peças-musicais/:id",
+  "/pecas-musicais/:id",
   verificarToken,
   verificarPerfilMaestro,
   ServiçosMaestro.removerPeçaMusical
 );
 RotasMaestro.get(
-  "/peças-musicais/maestro/:cpf",
+  "/pecas-musicais/maestro/:cpf",
   verificarToken,
   verificarPerfilMaestro,
   verificarErroConteúdoToken,
   ServiçosMaestro.buscarPeçasMusicaisMaestro
 );
 RotasMaestro.get(
-  "/peças-musicais/patrocínios",
+  "/pecas-musicais/patrocinios",
   verificarToken,
   verificarPerfilMaestro,
   ServiçosMaestro.buscarPatrocíniosPeçasMusicais

@@ -63,15 +63,15 @@ export default function Rotas() {
             />
             <Route
               element={<CadastrarPatrocínio />}
-              path="cadastrar-patrocinio"
+              path="cadastrar-patrocínio"
             />
             <Route
               element={<PesquisarPeçasMusicais />}
-              path="pesquisar-pecas-musicais"
+              path="pesquisar-peças-musicais"
             />
             <Route
               element={<ConsultarPeçaMusical />}
-              path="consultar-peca-musical"
+              path="consultar-peça-musical"
             />
           </Route>
         </Route>

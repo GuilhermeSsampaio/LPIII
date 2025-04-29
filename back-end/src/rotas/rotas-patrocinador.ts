@@ -21,26 +21,26 @@ RotasPatrocinador.get(
   ServiçosPatrocinador.buscarPatrocinador
 );
 RotasPatrocinador.post(
-  "/patrocínios/",
+  "/patrocinios/",
   verificarToken,
   verificarPerfilPatrocinador,
   ServiçosPatrocinador.cadastrarPatrocínio
 );
 RotasPatrocinador.delete(
-  "/patrocínios/:id",
+  "/patrocinios/:id",
   verificarToken,
   verificarPerfilPatrocinador,
   ServiçosPatrocinador.removerPatrocínio
 );
 RotasPatrocinador.get(
-  "/patrocínios/patrocinador/:cpf",
+  "/patrocinios/patrocinador/:cpf",
   verificarToken,
   verificarPerfilPatrocinador,
   verificarErroConteúdoToken,
   ServiçosPatrocinador.buscarPatrocíniosPatrocinador
 );
 RotasPatrocinador.get(
-  "/patrocínios/peças-musicais/",
+  "/patrocinios/pecas-musicais/",
   verificarToken,
   verificarPerfilPatrocinador,
   ServiçosPatrocinador.buscarPeçasMusicais

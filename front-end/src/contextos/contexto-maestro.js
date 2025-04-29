@@ -2,10 +2,10 @@ import { createContext, useState } from "react";
 const ContextoMaestro = createContext();
 export default ContextoMaestro;
 export function ProvedorMaestro({ children }) {
-  const [pecaMusicalConsultada, setPecaMusicalConsultada] = useState({});
+  const [peçaMusicalConsultada, setPeçaMusicalConsultada] = useState({});
   return (
     <ContextoMaestro.Provider
-      value={{ pecaMusicalConsultada, setPecaMusicalConsultada }}
+      value={{ peçaMusicalConsultada, setPeçaMusicalConsultada }}
     >
       {children}
     </ContextoMaestro.Provider>

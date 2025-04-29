@@ -13,21 +13,21 @@ export function serviçoAtualizarMaestro(maestro) {
 }
 
 export function serviçoCadastrarPeçaMusical(peçaMusical) {
-  return servidor.post("/maestros/peças-musicais", peçaMusical);
+  return servidor.post("/maestros/pecas-musicais", peçaMusical);
 }
 
 export function serviçoAlterarPeçaMusical(peçaMusical) {
-  return servidor.patch("/maestros/peças-musicais", peçaMusical);
+  return servidor.patch("/maestros/pecas-musicais", peçaMusical);
 }
 
 export function serviçoRemoverPeçaMusical(id) {
-  return servidor.delete(`/maestros/peças-musicais/${id}`);
+  return servidor.delete(`/maestros/pecas-musicais/${id}`);
 }
 
 export function serviçoBuscarPeçasMusicaisMaestro(cpf) {
-  return servidor.get(`/maestros/peças-musicais/maestro/${cpf}`);
+  return servidor.get(`/maestros/pecas-musicais/maestro/${cpf}`);
 }
 
 export function serviçoBuscarPatrocíniosPeçasMusicais() {
-  return servidor.get("/maestros/peças-musicais/patrocínios");
+  return servidor.get("/maestros/pecas-musicais/patrocinios");
 }
