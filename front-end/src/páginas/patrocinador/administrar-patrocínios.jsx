@@ -37,24 +37,22 @@ export default function AdministrarPatrocínios() {
   } = useContext(ContextoPatrocinador);
   const [listaPatrocínios, setListaPatrocínios] = useState([]);
   const navegar = useNavigate();
-  const opçõesCategoria = [
-    { label: "Extensão", value: "Extensão" },
-    { label: "Iniciação Científica", value: "Iniciação Científica" },
-    { label: "TCC", value: "TCC" },
-  ];
+
   function retornarPáginaInicial() {
     navegar("/pagina-inicial");
   }
+
   function adicionarPatrocínio() {
     setPatrocínioConsultado(null);
     setPeçaMusicalSelecionada(null);
-    navegar("../cadastrar-patrocínio");
+    navegar("../cadastrar-patrocinio");
   }
+
   function ConsultarTemplate(patrocínio) {
     function consultar() {
       setPatrocínioConsultado(patrocínio);
       setPeçaMusicalSelecionada(null);
-      navegar("../cadastrar-patrocínio");
+      navegar("../cadastrar-patrocinio");
     }
     return (
       <Button
@@ -69,39 +67,24 @@ export default function AdministrarPatrocínios() {
       />
     );
   }
-  function DropdownÁreaTemplate(opções) {
-    function alterarFiltroDropdown(event) {
-      return opções.filterCallback(event.value, opções.index);
+
+  function formatarData(patrocínio) {
+    if (patrocínio.data_proposta) {
+      return new Date(patrocínio.data_proposta).toLocaleDateString();
     }
-    return (
-      <Dropdown
-        value={opções.value}
-        options={opçõesCategoria}
-        placeholder="Selecione"
-        onChange={alterarFiltroDropdown}
-        showClear
-      />
-    );
+    return "";
   }
-  function BooleanBodyTemplate(patrocínio) {
-    if (patrocínio.necessidade_bolsa) return "Sim";
-    else return "Não";
-  }
-  function BooleanFilterTemplate(opções) {
-    function alterarFiltroTriState(event) {
-      return opções.filterCallback(event.value);
+
+  function formatarMoeda(patrocínio) {
+    if (patrocínio.orçamento_disponível) {
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(patrocínio.orçamento_disponível);
     }
-    return (
-      <div>
-        <label>Necessidade de bolsa:</label>
-        <TriStateCheckbox
-          className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)}
-          value={opções.value}
-          onChange={alterarFiltroTriState}
-        />
-      </div>
-    );
+    return "";
   }
+
   useEffect(() => {
     let desmontado = false;
     async function buscarPatrocíniosPatrocinador() {
@@ -117,6 +100,7 @@ export default function AdministrarPatrocínios() {
     buscarPatrocíniosPatrocinador();
     return () => (desmontado = true);
   }, [usuárioLogado.cpf]);
+
   return (
     <div className={estilizarFlex()}>
       <Toast ref={referênciaToast} position="bottom-center" />
@@ -145,7 +129,15 @@ export default function AdministrarPatrocínios() {
             headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
           />
           <Column
-            field="peçaMusical.maestro.usuário.nome"
+            field="peça_musical.título"
+            header="Peça Musical"
+            filter
+            showFilterOperator={false}
+            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
+            sortable
+          />
+          <Column
+            field="peça_musical.maestro.usuário.nome"
             header="Maestro"
             filter
             showFilterOperator={false}
@@ -153,39 +145,20 @@ export default function AdministrarPatrocínios() {
             sortable
           />
           <Column
-            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
-            field="peçaMusical.categoria"
-            header="Categoria"
-            filter
-            filterMatchMode="equals"
-            filterElement={DropdownÁreaTemplate}
-            showClearButton={false}
-            showFilterOperator={false}
-            showFilterMatchModes={false}
-            filterMenuClassName={estilizarFilterMenu()}
-            showFilterMenuOptions={false}
-            sortable
-          />
-          <Column
-            field="peçaMusical.título"
-            header="PeçaMusical"
+            field="orçamento_disponível"
+            header="Orçamento Disponível"
+            body={formatarMoeda}
             filter
             showFilterOperator={false}
             headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
             sortable
           />
           <Column
-            field="necessidade_bolsa"
-            header="Necessidade de bolsa"
-            dataType="boolean"
+            field="data_proposta"
+            header="Data da Proposta"
+            body={formatarData}
             filter
             showFilterOperator={false}
-            body={BooleanBodyTemplate}
-            filterElement={BooleanFilterTemplate}
-            filterMatchMode="equals"
-            showClearButton={false}
-            showAddButton={false}
-            filterMenuClassName={estilizarFilterMenu()}
             headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
             sortable
           />

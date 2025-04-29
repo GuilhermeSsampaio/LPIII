@@ -46,6 +46,7 @@ export default function Rotas() {
               path="cadastrar-peca-musical"
             />
           </Route>
+
           <Route
             element={
               <ProvedorPatrocinador>
@@ -59,19 +60,19 @@ export default function Rotas() {
             />
             <Route
               element={<AdministrarPatrocínios />}
-              path="administrar-patrocínios"
+              path="administrar-patrocinios"
             />
             <Route
               element={<CadastrarPatrocínio />}
-              path="cadastrar-patrocínio"
+              path="cadastrar-patrocinio"
             />
             <Route
               element={<PesquisarPeçasMusicais />}
-              path="pesquisar-peças-musicais"
+              path="pesquisar-pecas-musicais"
             />
             <Route
               element={<ConsultarPeçaMusical />}
-              path="consultar-peça-musical"
+              path="consultar-peca-musical"
             />
           </Route>
         </Route>

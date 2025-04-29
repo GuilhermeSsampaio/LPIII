@@ -64,7 +64,7 @@ export default function MenuLateral({ children }) {
         },
         {
           label: "Administrar Patrocínios",
-          command: () => navegar("/administrar-patrocínios"),
+          command: () => navegar("/administrar-patrocinios"),
         },
         { label: "Sair do Sistema", command: () => sairSistema() },
       ],

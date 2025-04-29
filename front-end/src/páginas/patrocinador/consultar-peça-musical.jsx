@@ -44,7 +44,7 @@ export default function ConsultarPeçaMusical() {
   };
   const navegar = useNavigate();
   function retornar() {
-    if (peçaMusicalConsultada) navegar("../pesquisar-peçasMusicais");
+    if (peçaMusicalConsultada) navegar("../pesquisar-pecas-musicais");
     else if (peçaMusicalInteresse) navegar("../cadastrar-interesse");
   }
   return (

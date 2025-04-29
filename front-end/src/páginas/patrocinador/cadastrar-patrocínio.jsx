@@ -65,11 +65,11 @@ export default function CadastrarPatrocínio() {
   }
 
   function pesquisarPeçasMusicais() {
-    navegar("../pesquisar-peças-musicais");
+    navegar("../pesquisar-pecas-musicais");
   }
 
   function retornarAdministrarPatrocínios() {
-    navegar("../administrar-patrocínios");
+    navegar("../administrar-patrocinios");
   }
 
   async function cadastrarPatrocínio() {
