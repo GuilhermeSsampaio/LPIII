@@ -33,7 +33,7 @@ export default function AdministrarPeçasMusicais() {
   const [listaPeçasMusicais, setListaPeçasMusicais] = useState([]);
   const navegar = useNavigate();
 
-  const opçõesEstilo = [
+  const opçõesGênero = [
     { label: "Clássico", value: "clássico" },
     { label: "Pop", value: "pop" },
     { label: "Rock", value: "rock" },
@@ -67,14 +67,14 @@ export default function AdministrarPeçasMusicais() {
     );
   }
 
-  function DropdownEstiloTemplate(opções) {
+  function DropdownGêneroTemplate(opções) {
     function alterarFiltroDropdown(event) {
       return opções.filterCallback(event.value, opções.index);
     }
     return (
       <Dropdown
         value={opções.value}
-        options={opçõesEstilo}
+        options={opçõesGênero}
         placeholder="Selecione"
         onChange={alterarFiltroDropdown}
         showClear
@@ -153,11 +153,11 @@ export default function AdministrarPeçasMusicais() {
           />
           <Column
             headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
-            field="estilo"
-            header="Estilo"
+            field="gênero"
+            header="Gênero"
             filter
             filterMatchMode="equals"
-            filterElement={DropdownEstiloTemplate}
+            filterElement={DropdownGêneroTemplate}
             showClearButton={false}
             showFilterOperator={false}
             showFilterMatchModes={false}

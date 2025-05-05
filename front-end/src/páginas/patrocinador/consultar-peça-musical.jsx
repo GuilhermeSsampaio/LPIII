@@ -50,7 +50,7 @@ export default function ConsultarPeçaMusical() {
   return (
     <div className={estilizarFlex()}>
       <Card
-        title="Consultar PeçaMusical"
+        title="Consultar Peça Musical"
         className={estilizarCard(usuárioLogado.cor_tema)}
       >
         <div className={estilizarDivCampo()}>
@@ -77,71 +77,38 @@ export default function ConsultarPeçaMusical() {
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Categoria*:
+            Duração (minutos)*:
           </label>
           <InputText
-            name="categoria"
-            className={estilizarInputText(null, 200, usuárioLogado.cor_tema)}
-            value={dados.categoria}
-            disabled
-          />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Área de Atuação*:
-          </label>
-          <InputText
-            name="área_atuação"
-            className={estilizarInputText(null, 350, usuárioLogado.cor_tema)}
-            value={dados.área_atuação}
-            disabled
-          />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Data de Início*:
-          </label>
-          <InputText
-            name="data_início"
-            type="date"
-            value={dados.data_início}
-            className={estilizarInputText(null, usuárioLogado.cor_tema)}
-            disabled
-          />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Descrição*:
-          </label>
-          <InputTextarea
-            name="descrição"
-            value={dados.descrição}
+            name="duração"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
-            autoResize
+            value={
+              peçaMusicalConsultada?.duração || peçaMusicalInteresse?.duração
+            }
             disabled
           />
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Concorrendo à Bolsa*:
-          </label>
-          <Checkbox
-            name="concorrendo_bolsa"
-            checked={dados.concorrendo_bolsa}
-            className={estilizarCheckbox(null)}
-            autoResize
-            disabled
-          />
-        </div>
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Resultado*:
+            Tom*:
           </label>
           <InputText
-            name="resultado"
-            className={estilizarInputText(null, 100, usuárioLogado.cor_tema)}
-            value={dados.resultado}
-            autoResize
+            name="tom"
+            className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
+            value={peçaMusicalConsultada?.tom || peçaMusicalInteresse?.tom}
+            disabled
+          />
+        </div>
+        <div className={estilizarDivCampo()}>
+          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+            Gênero*:
+          </label>
+          <InputText
+            name="gênero"
+            className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
+            value={
+              peçaMusicalConsultada?.gênero || peçaMusicalInteresse?.gênero
+            }
             disabled
           />
         </div>

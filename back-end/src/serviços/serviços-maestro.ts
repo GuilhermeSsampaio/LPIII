@@ -70,7 +70,7 @@ export default class ServiçosMaestro {
 
   static async cadastrarPeçaMusical(request, response) {
     try {
-      const { título, duração, tom, estilo, cpf } = request.body;
+      const { título, duração, tom, gênero, cpf } = request.body;
       const cpf_encriptado = md5(cpf);
       const maestro = await Maestro.findOne({
         where: { usuário: cpf_encriptado },
@@ -80,7 +80,7 @@ export default class ServiçosMaestro {
         título,
         duração,
         tom,
-        estilo,
+        gênero,
         maestro,
       }).save();
       return response.json();
@@ -93,18 +93,18 @@ export default class ServiçosMaestro {
 
   static async alterarPeçaMusical(request, response) {
     try {
-      const { id, título, duração, tom, estilo } = request.body;
+      const { id, título, duração, tom, gênero } = request.body;
       await PeçaMusical.update(id, {
         título,
         duração,
         tom,
-        estilo,
+        gênero,
       });
       return response.json();
     } catch (error) {
       return response
         .status(500)
-        .json({ erro: "Erro BD : alterarPeçaMusical" });
+        .json({ erro: "Erro BD : alterarPeçaMusical", error });
     }
   }
 
@@ -142,12 +142,12 @@ export default class ServiçosMaestro {
       .filter(
         (peçaMusical, índice, peças_antes_filtrar) =>
           peças_antes_filtrar.findIndex(
-            (peça_anterior) => peça_anterior.estilo === peçaMusical.estilo
+            (peça_anterior) => peça_anterior.gênero === peçaMusical.gênero
           ) === índice
       )
       .map((peçaMusical) => ({
-        label: peçaMusical.estilo,
-        value: peçaMusical.estilo,
+        label: peçaMusical.gênero,
+        value: peçaMusical.gênero,
       }));
     return estilos;
   }

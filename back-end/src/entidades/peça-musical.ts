@@ -30,7 +30,7 @@ export default class PeçaMusical extends BaseEntity {
   tom: string;
 
   @Column({ type: "enum", enum: Gênero })
-  estilo: Gênero;
+  gênero: Gênero;
 
   @ManyToOne(() => Maestro, (maestro) => maestro.peças_musicais, {
     onDelete: "CASCADE",

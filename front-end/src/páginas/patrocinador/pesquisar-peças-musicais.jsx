@@ -155,8 +155,8 @@ export default function PesquisarPeçasMusicais() {
           />
           <Column
             headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
-            field="estilo"
-            header="Estilo"
+            field="gênero"
+            header="Gênero"
             filter
             filterMatchMode="equals"
             filterElement={DropdownEstiloTemplate}

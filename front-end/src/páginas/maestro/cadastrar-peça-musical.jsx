@@ -39,18 +39,18 @@ import {
 export default function CadastrarPeçaMusical() {
   const referênciaToast = useRef(null);
   const { usuárioLogado } = useContext(ContextoUsuário);
-  const { propostaConsultada } = useContext(ContextoMaestro);
+  const { peçaMusicalConsultada } = useContext(ContextoMaestro);
   const [dados, setDados] = useState({
-    título: propostaConsultada?.título || "",
-    duração: propostaConsultada?.duração || "",
-    tom: propostaConsultada?.tom || "",
-    estilo: propostaConsultada?.estilo || "",
+    título: peçaMusicalConsultada?.título || "",
+    duração: peçaMusicalConsultada?.duração || "",
+    tom: peçaMusicalConsultada?.tom || "",
+    gênero: peçaMusicalConsultada?.gênero || "",
   });
-  const [listaEstilos, setListaEstilos] = useState([]);
+  const [listaGêneros, setListaGêneros] = useState([]);
   const [erros, setErros] = useState({});
   const navegar = useNavigate();
 
-  const opçõesEstilo = [
+  const opçõesGênero = [
     { label: "Clássico", value: "clássico" },
     { label: "Pop", value: "pop" },
     { label: "Rock", value: "rock" },
@@ -63,12 +63,12 @@ export default function CadastrarPeçaMusical() {
   }
 
   function validarCampos() {
-    const { título, duração, tom, estilo } = dados;
+    const { título, duração, tom, gênero } = dados;
     let errosCamposObrigatórios = validarCamposObrigatórios({
       título,
       duração,
       tom,
-      estilo,
+      gênero,
     });
     setErros(errosCamposObrigatórios);
     return checarListaVazia(errosCamposObrigatórios);
@@ -81,7 +81,12 @@ export default function CadastrarPeçaMusical() {
   async function cadastrarPeçaMusical() {
     if (validarCampos()) {
       try {
-        await serviçoCadastrarPeçaMusical({ ...dados, cpf: usuárioLogado.cpf });
+        const dadosAjustados = {
+          ...dados,
+          cpf: usuárioLogado.cpf,
+        };
+
+        await serviçoCadastrarPeçaMusical(dadosAjustados);
         mostrarToast(
           referênciaToast,
           "Peça Musical cadastrada com sucesso!",
@@ -96,10 +101,13 @@ export default function CadastrarPeçaMusical() {
   async function alterarPeçaMusical() {
     if (validarCampos()) {
       try {
-        await serviçoAlterarPeçaMusical({
+        // Usamos diretamente o gênero, sem precisar renomear
+        const dadosAjustados = {
           ...dados,
-          id: propostaConsultada.id,
-        });
+          id: peçaMusicalConsultada.id,
+        };
+
+        await serviçoAlterarPeçaMusical(dadosAjustados);
         mostrarToast(
           referênciaToast,
           "Peça Musical alterada com sucesso!",
@@ -113,7 +121,7 @@ export default function CadastrarPeçaMusical() {
 
   async function removerPeçaMusical() {
     try {
-      await serviçoRemoverPeçaMusical(propostaConsultada.id);
+      await serviçoRemoverPeçaMusical(peçaMusicalConsultada.id);
       mostrarToast(
         referênciaToast,
         "Peça Musical excluída com sucesso!",
@@ -125,7 +133,7 @@ export default function CadastrarPeçaMusical() {
   }
 
   function BotõesAções() {
-    if (propostaConsultada) {
+    if (peçaMusicalConsultada) {
       return (
         <div className={estilizarInlineFlex()}>
           <Button
@@ -164,21 +172,21 @@ export default function CadastrarPeçaMusical() {
   }
 
   function títuloFormulário() {
-    if (propostaConsultada) return "Alterar Peça Musical";
+    if (peçaMusicalConsultada) return "Alterar Peça Musical";
     else return "Cadastrar Peça Musical";
   }
 
   useEffect(() => {
-    async function buscarEstilosPeçasMusicais() {
+    async function buscarGênerosPeçasMusicais() {
       try {
         const response = await serviçoBuscarPatrocíniosPeçasMusicais();
-        if (response.data) setListaEstilos(response.data);
+        if (response.data) setListaGêneros(response.data);
       } catch (error) {
         const erro = error.response.data.erro;
         if (erro) mostrarToast(referênciaToast, erro, "erro");
       }
     }
-    buscarEstilosPeçasMusicais();
+    buscarGênerosPeçasMusicais();
   }, []);
 
   return (
@@ -244,17 +252,17 @@ export default function CadastrarPeçaMusical() {
 
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Estilo*:
+            Gênero*:
           </label>
           <Dropdown
-            name="estilo"
-            className={estilizarDropdown(erros.estilo, usuárioLogado.cor_tema)}
-            value={dados.estilo}
-            options={opçõesEstilo}
+            name="gênero"
+            className={estilizarDropdown(erros.gênero, usuárioLogado.cor_tema)}
+            value={dados.gênero}
+            options={opçõesGênero}
             onChange={alterarEstado}
             placeholder="-- Selecione --"
           />
-          <MostrarMensagemErro mensagem={erros.estilo} />
+          <MostrarMensagemErro mensagem={erros.gênero} />
         </div>
 
         <Divider className={estilizarDivider()} />
