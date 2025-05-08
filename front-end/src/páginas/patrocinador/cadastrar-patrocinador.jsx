@@ -3,12 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
-import { Dropdown } from "primereact/dropdown";
 import { InputMask } from "primereact/inputmask";
-import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-import { ANO_MÁSCARA, TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
+import { TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
 import {
   serviçoCadastrarPatrocinador,
   serviçoAtualizarPatrocinador,
@@ -27,18 +25,15 @@ import {
   estilizarCard,
   estilizarDivCampo,
   estilizarDivider,
-  estilizarDropdown,
+  estilizarInputMask,
+  estilizarLabel,
   estilizarFlex,
   estilizarInlineFlex,
-  estilizarInputMask,
-  estilizarInputText,
-  estilizarLabel,
 } from "../../utilitários/estilos";
 export default function CadastrarPatrocinador() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
-    email: "",
     telefone: "",
   });
   const [erros, setErros] = useState({});
@@ -65,7 +60,6 @@ export default function CadastrarPatrocinador() {
         const response = await serviçoCadastrarPatrocinador({
           ...dados,
           usuário_info: usuárioLogado,
-          email: dados.email,
           telefone: dados.telefone,
         });
         if (response.data)
@@ -131,7 +125,6 @@ export default function CadastrarPatrocinador() {
         if (!desmontado && response.data) {
           setDados((dados) => ({
             ...dados,
-            email: response.data.email,
             telefone: response.data.telefone,
           }));
         }
@@ -154,17 +147,6 @@ export default function CadastrarPatrocinador() {
         title={títuloFormulário()}
         className={estilizarCard(usuárioLogado.cor_tema)}
       >
-        <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>Email*:</label>
-          <InputText
-            name="email"
-            className={estilizarInputText(erros.email, 400, dados.cor_tema)}
-            value={dados.email}
-            onChange={alterarEstado}
-          />
-
-          <MostrarMensagemErro mensagem={erros.email} />
-        </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
             Telefone*:

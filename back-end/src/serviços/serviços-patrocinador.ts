@@ -79,14 +79,14 @@ export default class ServiçosPatrocinador {
 
   static async cadastrarPatrocinador(request, response) {
     try {
-      const { usuário_info, email, telefone } = request.body;
+      const { usuário_info, telefone } = request.body;
       const { usuário, token } = await ServiçosUsuário.cadastrarUsuário(
         usuário_info
       );
       const entityManager = getManager();
       await entityManager.transaction(async (transactionManager) => {
         await transactionManager.save(usuário);
-        const patrocinador = Patrocinador.create({ usuário, email, telefone });
+        const patrocinador = Patrocinador.create({ usuário, telefone });
         await transactionManager.save(patrocinador);
         await transactionManager.update(Usuário, usuário.cpf, {
           status: Status.ATIVO,
@@ -99,11 +99,11 @@ export default class ServiçosPatrocinador {
   }
   static async atualizarPatrocinador(request, response) {
     try {
-      const { cpf, email, telefone } = request.body;
+      const { cpf, telefone } = request.body;
       const cpf_encriptado = md5(cpf);
       await Patrocinador.update(
         { usuário: { cpf: cpf_encriptado } },
-        { email, telefone }
+        { telefone }
       );
       return response.json();
     } catch (error) {
@@ -125,7 +125,6 @@ export default class ServiçosPatrocinador {
           .json({ erro: "Patrocinador não encontrado." });
       return response.json({
         nome: patrocinador.usuário.nome,
-        email: patrocinador.email,
         telefone: patrocinador.telefone,
       });
     } catch (error) {
