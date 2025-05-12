@@ -5,6 +5,7 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
 import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
@@ -34,6 +35,7 @@ import {
   estilizarInputText,
   estilizarInputNumber,
   estilizarLabel,
+  estilizarCheckbox,
 } from "../../utilitários/estilos";
 
 export default function CadastrarPeçaMusical() {
@@ -45,6 +47,7 @@ export default function CadastrarPeçaMusical() {
     duração: peçaMusicalConsultada?.duração || "",
     tom: peçaMusicalConsultada?.tom || "",
     gênero: peçaMusicalConsultada?.gênero || "",
+    internacional: peçaMusicalConsultada?.internacional || false,
   });
   const [listaGêneros, setListaGêneros] = useState([]);
   const [erros, setErros] = useState({});
@@ -263,6 +266,18 @@ export default function CadastrarPeçaMusical() {
             placeholder="-- Selecione --"
           />
           <MostrarMensagemErro mensagem={erros.gênero} />
+        </div>
+        <div className={estilizarDivCampo()}>
+          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+            Internacional*:
+          </label>
+          <Checkbox
+            name="internacional"
+            checked={dados.internacional}
+            className={estilizarCheckbox(null)}
+            autoResize
+            disabled
+          />
         </div>
 
         <Divider className={estilizarDivider()} />

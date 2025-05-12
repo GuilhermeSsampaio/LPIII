@@ -101,13 +101,14 @@ export default function ConsultarPeçaMusical() {
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
-            Gênero*:
+            Internacional:
           </label>
-          <InputText
-            name="gênero"
-            className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
-            value={
-              peçaMusicalConsultada?.gênero || peçaMusicalInteresse?.gênero
+          <Checkbox
+            name="internacional"
+            className={estilizarCheckbox(usuárioLogado.cor_tema)}
+            checked={
+              peçaMusicalConsultada?.internacional ||
+              peçaMusicalInteresse?.internacional
             }
             disabled
           />

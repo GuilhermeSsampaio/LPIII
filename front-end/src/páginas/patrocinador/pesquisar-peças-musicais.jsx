@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import { Checkbox } from "primereact/checkbox";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
@@ -165,6 +166,16 @@ export default function PesquisarPeçasMusicais() {
             showFilterMatchModes={false}
             filterMenuClassName={estilizarFilterMenu()}
             showFilterMenuOptions={false}
+            sortable
+          />
+          <Column
+            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
+            field="internacional"
+            header="Internacional"
+            dataType="boolean"
+            filter
+            filterMatchMode="equals"
+            body={(row) => <Checkbox checked={row.internacional} disabled />}
             sortable
           />
         </DataTable>

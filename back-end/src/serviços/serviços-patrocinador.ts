@@ -79,31 +79,30 @@ export default class ServiçosPatrocinador {
 
   static async cadastrarPatrocinador(request, response) {
     try {
-      const { usuário_info, telefone } = request.body;
+      const { usuário_info, telefone, empresa } = request.body;
       const { usuário, token } = await ServiçosUsuário.cadastrarUsuário(
         usuário_info
       );
       const entityManager = getManager();
       await entityManager.transaction(async (transactionManager) => {
-        await transactionManager.save(usuário);
-        const patrocinador = Patrocinador.create({ usuário, telefone });
-        await transactionManager.save(patrocinador);
-        await transactionManager.update(Usuário, usuário.cpf, {
-          status: Status.ATIVO,
-        });
-        return response.json({ status: Status.ATIVO, token });
+        await Patrocinador.create({
+          telefone,
+          empresa,
+          usuário,
+        }).save();
       });
+      return response.json({ token });
     } catch (error) {
       return response.status(500).json({ erro: error });
     }
   }
   static async atualizarPatrocinador(request, response) {
     try {
-      const { cpf, telefone } = request.body;
+      const { cpf, telefone, empresa } = request.body;
       const cpf_encriptado = md5(cpf);
       await Patrocinador.update(
         { usuário: { cpf: cpf_encriptado } },
-        { telefone }
+        { telefone, empresa }
       );
       return response.json();
     } catch (error) {

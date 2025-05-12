@@ -145,6 +145,14 @@ export default function AdministrarPatrocínios() {
             sortable
           />
           <Column
+            field="patrocinador.empresa"
+            header="Empresa"
+            filter
+            showFilterOperator={false}
+            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
+            sortable
+          />
+          <Column
             field="orçamento_disponível"
             header="Orçamento Disponível"
             body={formatarMoeda}

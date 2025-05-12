@@ -1,8 +1,8 @@
 @baseUrl = http://localhost:3333
-@token_joao = null
-@token_felipinho = null
-@token_pedrinho = null
-@token_paulo = null
+@token_joao =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJtYWVzdHJvIiwiZW1haWwiOiJqb2FvLmZlcm5hbmRlc0BlbWFpbC5jb20iLCJpYXQiOjE3NDcwNTg4MjYsImV4cCI6MTc0NzE0NTIyNiwic3ViIjoiSm_Do28gRmVybmFuZGVzIn0.-4VM7Tdd08k3a9PNsaVFlwwIv315BBDHbkQPZiJ1M98
+@token_felipinho = 
+@token_pedrinho =
+@token_paula = 
 
 ### Cadastro do Maestro João Fernandes com todos os dados do usuário
 POST http://localhost:3333/maestros
@@ -19,7 +19,7 @@ Content-Type: application/json
         "resposta": "Rex",
         "cor_tema": "blue"
     },
-    "estilo": "Rock",
+    "estilo": "elegante",
     "anos_experiência": 10,
     "nacionalidade": "Brasileiro"
 }
@@ -39,7 +39,7 @@ Content-Type: application/json
         "resposta": "São José",
         "cor_tema": "green"
     },
-    "estilo": "Pop",
+    "estilo": "simples",
     "anos_experiência": 8,
     "nacionalidade": "Brasileiro"
 }
@@ -59,7 +59,8 @@ Content-Type: application/json
         "resposta": "Pizza",
         "cor_tema": "orange"
     },
-    "telefone": "(11) 98765-4321"
+    "telefone": "(11) 98765-4321",
+    "empresa": "TechCorp"
 }
 
 ### Cadastro da Patrocinadora Paula Matos com todos os dados do usuário
@@ -77,7 +78,8 @@ Content-Type: application/json
         "resposta": "São Paulo",
         "cor_tema": "purple"
     },
-    "telefone": "(11) 91234-5678"
+    "telefone": "(11) 91234-5678",
+    "empresa": "Investimentos Paula Ltda"
 }
 
 ### Login do João Fernandes
@@ -85,7 +87,7 @@ POST http://localhost:3333/usuarios/login
 Content-Type: application/json
 
 {
-    "cpf": "111.222.333-44",
+    "nome_login": "111.222.333-44",
     "senha": "senha123"
 }
 
@@ -94,7 +96,7 @@ POST http://localhost:3333/usuarios/login
 Content-Type: application/json
 
 {
-    "cpf": "222.333.444-55",
+    "nome_login": "222.333.444-55",
     "senha": "senha123"
 }
 
@@ -103,7 +105,7 @@ POST http://localhost:3333/usuarios/login
 Content-Type: application/json
 
 {
-    "cpf": "333.444.555-66",
+    "nome_login": "333.444.555-66",
     "senha": "senha123"
 }
 
@@ -126,6 +128,7 @@ Authorization: Bearer {{token_joao}}
   "tom": "Eb",
   "duração": 4,
   "gênero": "Rock",
+  "internacional": true,
   "cpf": "111.222.333-44"
 }
 
@@ -139,6 +142,7 @@ Authorization: Bearer {{token_joao}}
   "tom": "D",
   "duração": 5,
   "gênero": "Rock",
+  "internacional": true,
   "cpf": "111.222.333-44"
 }
 
@@ -152,6 +156,7 @@ Authorization: Bearer {{token_felipinho}}
   "tom": "E",
   "duração": 5,
   "gênero": "Pop",
+  "internacional": false,
   "cpf": "222.333.444-55"
 }
 
@@ -165,6 +170,7 @@ Authorization: Bearer {{token_felipinho}}
   "tom": "C",
   "duração": 3,
   "gênero": "Pop",
+  "internacional": false,
   "cpf": "222.333.444-55"
 }
 

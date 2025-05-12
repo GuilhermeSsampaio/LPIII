@@ -1,44 +1,49 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { InputMask } from "primereact/inputmask";
+import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import { TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
 import {
-  serviçoCadastrarPatrocinador,
-  serviçoAtualizarPatrocinador,
-  serviçoBuscarPatrocinador,
-} from "../../serviços/serviços-patrocinador";
-import mostrarToast from "../../utilitários/mostrar-toast";
+  estilizarBotão,
+  estilizarBotãoRetornar,
+  estilizarCard,
+  estilizarDivCampo,
+  estilizarDivider,
+  estilizarFlex,
+  estilizarInlineFlex,
+  estilizarInputMask,
+  estilizarInputText,
+  estilizarLabel,
+  TAMANHOS,
+} from "../../utilitários/estilos";
 import {
   MostrarMensagemErro,
   checarListaVazia,
   validarCamposObrigatórios,
 } from "../../utilitários/validações";
 import {
-  TAMANHOS,
-  estilizarBotão,
-  estilizarBotãoRetornar,
-  estilizarCard,
-  estilizarDivCampo,
-  estilizarDivider,
-  estilizarInputMask,
-  estilizarLabel,
-  estilizarFlex,
-  estilizarInlineFlex,
-} from "../../utilitários/estilos";
+  serviçoCadastrarPatrocinador,
+  serviçoAtualizarPatrocinador,
+  serviçoBuscarPatrocinador,
+} from "../../serviços/serviços-patrocinador";
+import mostrarToast from "../../utilitários/mostrar-toast";
+
 export default function CadastrarPatrocinador() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
     telefone: "",
+    empresa: "",
   });
   const [erros, setErros] = useState({});
   const [cpfExistente, setCpfExistente] = useState(false);
   const navegar = useNavigate();
+
   function alterarEstado(event) {
     const chave = event.target.name || event.value;
     const valor = event.target.value;
@@ -149,6 +154,23 @@ export default function CadastrarPatrocinador() {
       >
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+            Empresa*:
+          </label>
+          <InputText
+            name="empresa"
+            onChange={alterarEstado}
+            className={estilizarInputText(
+              erros.empresa,
+              TAMANHOS.MAX_TEXTO,
+              usuárioLogado.cor_tema
+            )}
+            value={dados.empresa}
+          />
+          <MostrarMensagemErro mensagem={erros.empresa} />
+        </div>
+
+        <div className={estilizarDivCampo()}>
+          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
             Telefone*:
           </label>
           <InputMask
@@ -165,6 +187,7 @@ export default function CadastrarPatrocinador() {
           />
           <MostrarMensagemErro mensagem={erros.telefone} />
         </div>
+
         <Divider className={estilizarDivider(dados.cor_tema)} />
         <div className={estilizarInlineFlex()}>
           <Button

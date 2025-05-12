@@ -67,10 +67,9 @@ export default class ServiçosMaestro {
       return response.status(500).json({ erro: "Erro BD : buscarMaestro" });
     }
   }
-
   static async cadastrarPeçaMusical(request, response) {
     try {
-      const { título, duração, tom, gênero, cpf } = request.body;
+      const { título, duração, tom, gênero, internacional, cpf } = request.body;
       const cpf_encriptado = md5(cpf);
       const maestro = await Maestro.findOne({
         where: { usuário: cpf_encriptado },
@@ -81,6 +80,7 @@ export default class ServiçosMaestro {
         duração,
         tom,
         gênero,
+        internacional,
         maestro,
       }).save();
       return response.json();
@@ -90,15 +90,15 @@ export default class ServiçosMaestro {
         .json({ erro: "Erro BD : cadastrarPeçaMusical" });
     }
   }
-
   static async alterarPeçaMusical(request, response) {
     try {
-      const { id, título, duração, tom, gênero } = request.body;
+      const { id, título, duração, tom, gênero, internacional } = request.body;
       await PeçaMusical.update(id, {
         título,
         duração,
         tom,
         gênero,
+        internacional,
       });
       return response.json();
     } catch (error) {
