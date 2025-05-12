@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 const ContextoMaestro = createContext();
+
 export default ContextoMaestro;
 export function ProvedorMaestro({ children }) {
   const [peçaMusicalConsultada, setPeçaMusicalConsultada] = useState({});

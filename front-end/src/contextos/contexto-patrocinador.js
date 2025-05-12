@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
+
 const ContextoPatrocinador = createContext();
 export default ContextoPatrocinador;
+
 export function ProvedorPatrocinador({ children }) {
   const [patrocínioConsultado, setPatrocínioConsultado] = useState({});
   const [peçaMusicalConsultada, setPeçaMusicalConsultada] = useState({});

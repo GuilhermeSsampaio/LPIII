@@ -270,13 +270,13 @@ export default function CadastrarPeçaMusical() {
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>
             Internacional*:
-          </label>
+          </label>{" "}
           <Checkbox
             name="internacional"
             checked={dados.internacional}
+            onChange={alterarEstado}
             className={estilizarCheckbox(null)}
             autoResize
-            disabled
           />
         </div>
 
