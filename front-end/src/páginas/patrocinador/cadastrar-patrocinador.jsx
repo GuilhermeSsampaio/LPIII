@@ -38,7 +38,7 @@ export default function CadastrarPatrocinador() {
   const referênciaToast = useRef(null);
   const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);
   const [dados, setDados] = useState({
-    email: "",
+    empresa: "",
     telefone: "",
   });
   const [erros, setErros] = useState({});
@@ -65,7 +65,7 @@ export default function CadastrarPatrocinador() {
         const response = await serviçoCadastrarPatrocinador({
           ...dados,
           usuário_info: usuárioLogado,
-          email: dados.email,
+          empresa: dados.empresa,
           telefone: dados.telefone,
         });
         if (response.data)
@@ -131,7 +131,7 @@ export default function CadastrarPatrocinador() {
         if (!desmontado && response.data) {
           setDados((dados) => ({
             ...dados,
-            email: response.data.email,
+            empresa: response.data.empresa,
             telefone: response.data.telefone,
           }));
         }
@@ -155,15 +155,15 @@ export default function CadastrarPatrocinador() {
         className={estilizarCard(usuárioLogado.cor_tema)}
       >
         <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>Email*:</label>
+          <label className={estilizarLabel(dados.cor_tema)}>empresa*:</label>
           <InputText
-            name="email"
-            className={estilizarInputText(erros.email, 400, dados.cor_tema)}
-            value={dados.email}
+            name="empresa"
+            className={estilizarInputText(erros.empresa, 400, dados.cor_tema)}
+            value={dados.empresa}
             onChange={alterarEstado}
           />
 
-          <MostrarMensagemErro mensagem={erros.email} />
+          <MostrarMensagemErro mensagem={erros.empresa} />
         </div>
         <div className={estilizarDivCampo()}>
           <label className={estilizarLabel(usuárioLogado.cor_tema)}>

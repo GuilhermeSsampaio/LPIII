@@ -70,7 +70,7 @@ export default class ServiçosMaestro {
 
   static async cadastrarPeçaMusical(request, response) {
     try {
-      const { título, duração, tom, gênero, cpf } = request.body;
+      const { título, duração, tom, gênero, cpf, internacional } = request.body;
       const cpf_encriptado = md5(cpf);
       const maestro = await Maestro.findOne({
         where: { usuário: cpf_encriptado },
@@ -82,6 +82,7 @@ export default class ServiçosMaestro {
         tom,
         gênero,
         maestro,
+        internacional,
       }).save();
       return response.json();
     } catch (error) {
@@ -93,12 +94,13 @@ export default class ServiçosMaestro {
 
   static async alterarPeçaMusical(request, response) {
     try {
-      const { id, título, duração, tom, gênero } = request.body;
+      const { id, título, duração, tom, gênero, internacional } = request.body;
       await PeçaMusical.update(id, {
         título,
         duração,
         tom,
         gênero,
+        internacional,
       });
       return response.json();
     } catch (error) {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Column } from "primereact/column";
+import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
@@ -23,6 +24,7 @@ import {
   estilizarDivider,
   estilizarFilterMenu,
   estilizarFlex,
+  estilizarTriStateCheckbox,
 } from "../../utilitários/estilos";
 
 export default function AdministrarPeçasMusicais() {
@@ -79,6 +81,27 @@ export default function AdministrarPeçasMusicais() {
         onChange={alterarFiltroDropdown}
         showClear
       />
+    );
+  }
+
+  function BooleanBodyTemplate(peçaMusical) {
+    if (peçaMusical.internacional) return "Sim";
+    else return "Não";
+  }
+
+  function BooleanFilterTemplate(opções) {
+    function alterarFiltroTriState(event) {
+      return opções.filterCallback(event.value);
+    }
+    return (
+      <div>
+        <label>Internacional</label>
+        <TriStateCheckbox
+          className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)}
+          value={opções.value}
+          onChange={alterarFiltroTriState}
+        />
+      </div>
     );
   }
 
@@ -160,6 +183,21 @@ export default function AdministrarPeçasMusicais() {
             filterElement={DropdownGêneroTemplate}
             showClearButton={false}
             showFilterOperator={false}
+            showFilterMatchModes={false}
+            filterMenuClassName={estilizarFilterMenu()}
+            showFilterMenuOptions={false}
+            sortable
+          />
+          <Column
+            field="internacional"
+            header="Internacional"
+            body={BooleanBodyTemplate}
+            filter
+            filterElement={BooleanFilterTemplate}
+            filterMatchMode="equals"
+            showFilterOperator={false}
+            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
+            showClearButton={false}
             showFilterMatchModes={false}
             filterMenuClassName={estilizarFilterMenu()}
             showFilterMenuOptions={false}

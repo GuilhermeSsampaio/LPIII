@@ -32,6 +32,9 @@ export default class PeçaMusical extends BaseEntity {
   @Column({ type: "enum", enum: Gênero })
   gênero: Gênero;
 
+  @Column()
+  internacional: boolean;
+
   @ManyToOne(() => Maestro, (maestro) => maestro.peças_musicais, {
     onDelete: "CASCADE",
   })

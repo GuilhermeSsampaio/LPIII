@@ -21,31 +21,32 @@ import {
 } from "../../utilitários/estilos";
 export default function ConsultarPeçaMusical() {
   const { usuárioLogado } = useContext(ContextoUsuário);
-  const { peçaMusicalConsultada, peçaMusicalInteresse } =
+  const { peçaMusicalConsultada, peçaMusicalInteresse: peçaMusicalPatrocínio } =
     useContext(ContextoPatrocinador);
   const dados = {
     nome_maestro:
       peçaMusicalConsultada?.maestro?.usuário?.nome ||
-      peçaMusicalInteresse?.maestro?.usuário?.nome,
-    título: peçaMusicalConsultada?.título || peçaMusicalInteresse?.título,
+      peçaMusicalPatrocínio?.maestro?.usuário?.nome,
+    título: peçaMusicalConsultada?.título || peçaMusicalPatrocínio?.título,
     categoria:
-      peçaMusicalConsultada?.categoria || peçaMusicalInteresse?.categoria,
+      peçaMusicalConsultada?.categoria || peçaMusicalPatrocínio?.categoria,
     área_atuação:
-      peçaMusicalConsultada?.área_atuação || peçaMusicalInteresse?.área_atuação,
+      peçaMusicalConsultada?.área_atuação ||
+      peçaMusicalPatrocínio?.área_atuação,
     data_início:
-      peçaMusicalConsultada?.data_início || peçaMusicalInteresse?.data_início,
+      peçaMusicalConsultada?.data_início || peçaMusicalPatrocínio?.data_início,
     descrição:
-      peçaMusicalConsultada?.descrição || peçaMusicalInteresse?.descrição,
-    concorrendo_bolsa:
-      peçaMusicalConsultada?.concorrendo_bolsa ||
-      peçaMusicalInteresse?.concorrendo_bolsa,
+      peçaMusicalConsultada?.descrição || peçaMusicalPatrocínio?.descrição,
+    internacional:
+      peçaMusicalConsultada?.internacional ||
+      peçaMusicalPatrocínio?.internacional,
     resultado:
-      peçaMusicalConsultada?.resultado || peçaMusicalInteresse?.resultado,
+      peçaMusicalConsultada?.resultado || peçaMusicalPatrocínio?.resultado,
   };
   const navegar = useNavigate();
   function retornar() {
     if (peçaMusicalConsultada) navegar("../pesquisar-pecas-musicais");
-    else if (peçaMusicalInteresse) navegar("../cadastrar-interesse");
+    else if (peçaMusicalPatrocínio) navegar("../cadastrar-patrocinio");
   }
   return (
     <div className={estilizarFlex()}>
@@ -83,7 +84,7 @@ export default function ConsultarPeçaMusical() {
             name="duração"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
             value={
-              peçaMusicalConsultada?.duração || peçaMusicalInteresse?.duração
+              peçaMusicalConsultada?.duração || peçaMusicalPatrocínio?.duração
             }
             disabled
           />
@@ -95,7 +96,7 @@ export default function ConsultarPeçaMusical() {
           <InputText
             name="tom"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
-            value={peçaMusicalConsultada?.tom || peçaMusicalInteresse?.tom}
+            value={peçaMusicalConsultada?.tom || peçaMusicalPatrocínio?.tom}
             disabled
           />
         </div>
@@ -107,8 +108,20 @@ export default function ConsultarPeçaMusical() {
             name="gênero"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
             value={
-              peçaMusicalConsultada?.gênero || peçaMusicalInteresse?.gênero
+              peçaMusicalConsultada?.gênero || peçaMusicalPatrocínio?.gênero
             }
+            disabled
+          />
+        </div>
+        <div className={estilizarDivCampo()}>
+          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+            Internacional*:
+          </label>
+          <Checkbox
+            name="internacional"
+            checked={dados.internacional}
+            className={estilizarCheckbox(null)}
+            autoResize
             disabled
           />
         </div>

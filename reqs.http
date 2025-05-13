@@ -1,0 +1,225 @@
+@baseUrl = http://localhost:3333
+@token_joao =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJtYWVzdHJvIiwiZW1haWwiOiJqb2FvLmZlcm5hbmRlc0BlbWFpbC5jb20iLCJpYXQiOjE3NDcwOTIxMzMsImV4cCI6MTc0NzE3ODUzMywic3ViIjoiSm_Do28gRmVybmFuZGVzIn0.eZLn2JeIHCBSDx02lkV_IiwvoTHtK2PxJf6jnfHH3t0
+@token_felipinho = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJtYWVzdHJvIiwiZW1haWwiOiJmZWxpcGluaG8ubWVuZGVzQGVtYWlsLmNvbSIsImlhdCI6MTc0NzA5MTk5OSwiZXhwIjoxNzQ3MTc4Mzk5LCJzdWIiOiJGZWxpcGluaG8gTWVuZGVzIn0.DzneSnBxonxUrvKV354Lr3dbAto0bz_iJNSUj2GKGX0
+@token_pedrinho = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJwYXRyb2NpbmFkb3IiLCJlbWFpbCI6InBlZHJpbmhvQGVtYWlsLmNvbSIsImlhdCI6MTc0NzA5MjAyMSwiZXhwIjoxNzQ3MTc4NDIxLCJzdWIiOiJQZWRyaW5obyJ9.OoI_6c2WJDwlNiHf224Sg7c-SS_r7GCXJyFOwY0bRLY
+@token_paula = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJwYXRyb2NpbmFkb3IiLCJlbWFpbCI6InBhdWxhLm1hdG9zQGVtYWlsLmNvbSIsImlhdCI6MTc0NzA5MjAzOSwiZXhwIjoxNzQ3MTc4NDM5LCJzdWIiOiJQYXVsYSBNYXRvcyJ9.jyiGcoQYhrj4bgW51Ij4nBmsCTng1_DiJlUAlegVoPE
+
+### Cadastro do Maestro João Fernandes com todos os dados do usuário
+POST http://localhost:3333/maestros
+Content-Type: application/json
+
+{
+    "usuário_info": {
+        "cpf": "111.222.333-44",
+        "nome": "João Fernandes",
+        "perfil": "maestro",
+        "email": "joao.fernandes@email.com",
+        "senha": "senha123",
+        "questão": "Qual o nome do seu primeiro pet?",
+        "resposta": "Rex",
+        "cor_tema": "blue"
+    },
+    "estilo": "elegante",
+    "anos_experiência": 10,
+    "nacionalidade": "Brasileiro"
+}
+
+### Cadastro do Maestro Felipinho Mendes com todos os dados do usuário
+POST http://localhost:3333/maestros
+Content-Type: application/json
+
+{
+    "usuário_info": {
+        "cpf": "222.333.444-55",
+        "nome": "Felipinho Mendes",
+        "perfil": "maestro",
+        "email": "felipinho.mendes@email.com",
+        "senha": "senha123",
+        "questão": "Qual o nome da sua primeira escola?",
+        "resposta": "São José",
+        "cor_tema": "green"
+    },
+    "estilo": "Simples",
+    "anos_experiência": 8,
+    "nacionalidade": "Brasileiro"
+}
+
+### Cadastro do Patrocinador Pedrinho com todos os dados do usuário
+POST http://localhost:3333/patrocinadores
+Content-Type: application/json
+
+{
+    "usuário_info": {
+        "cpf": "333.444.555-66",
+        "nome": "Pedrinho",
+        "perfil": "patrocinador",
+        "email": "pedrinho@email.com",
+        "senha": "senha123",
+        "questão": "Qual sua comida favorita?",
+        "resposta": "Pizza",
+        "cor_tema": "orange"
+    },
+    "empresa": "Pedrinho Corp",
+    "telefone": "(11) 98765-4321"
+}
+
+### Cadastro da Patrocinadora Paula Matos com todos os dados do usuário
+POST http://localhost:3333/patrocinadores
+Content-Type: application/json
+
+{
+    "usuário_info": {
+        "cpf": "444.555.666-77",
+        "nome": "Paula Matos",
+        "perfil": "patrocinador",
+        "email": "paula.matos@email.com",
+        "senha": "senha123",
+        "questão": "Qual o nome da sua cidade natal?",
+        "resposta": "São Paulo",
+        "cor_tema": "purple"
+    },
+    "empresa": "Paula Matos Inc",
+    "telefone": "(11) 91234-5678"
+}
+
+### Login do João Fernandes
+POST http://localhost:3333/usuarios/login
+Content-Type: application/json
+
+{
+    "nome_login": "111.222.333-44",
+    "senha": "senha123"
+}
+
+### Login do Felipinho Mendes
+POST http://localhost:3333/usuarios/login
+Content-Type: application/json
+
+{
+    "cpf": "222.333.444-55",
+    "senha": "senha123"
+}
+
+### Login do Pedrinho
+POST http://localhost:3333/usuarios/login
+Content-Type: application/json
+
+{
+    "cpf": "333.444.555-66",
+    "senha": "senha123"
+}
+
+### Login da Paula Matos
+POST http://localhost:3333/usuarios/login
+Content-Type: application/json
+
+{
+    "cpf": "444.555.666-77",
+    "senha": "senha123"
+}
+
+### Cadastro da Peça "It's my life" - João Fernandes
+POST http://localhost:3333/maestros/pecas-musicais
+Content-Type: application/json
+Authorization: Bearer {{token_joao}}
+
+{
+  "título": "It's my life",
+  "tom": "Eb",
+  "duração": 4,
+  "gênero": "Rock",
+  "cpf": "111.222.333-44",
+  "internacional": true
+}
+
+### Cadastro da Peça "In the End" - João Fernandes
+POST http://localhost:3333/maestros/pecas-musicais
+Content-Type: application/json
+Authorization: Bearer {{token_joao}}
+
+{
+  "título": "In the End",
+  "tom": "D",
+  "duração": 5,
+  "gênero": "Rock",
+  "cpf": "111.222.333-44",
+  "internacional": true
+
+}
+
+### Cadastro da Peça "Mais que um mero poema" - Felipinho Mendes
+POST http://localhost:3333/maestros/pecas-musicais
+Content-Type: application/json
+Authorization: Bearer {{token_felipinho}}
+
+{
+  "título": "Mais que um mero poema",
+  "tom": "E",
+  "duração": 5,
+  "gênero": "Pop",
+    "cpf": "222.333.444-55",
+
+  "internacional": false
+}
+
+### Cadastro da Peça "Folhas do chão" - Felipinho Mendes
+POST http://localhost:3333/maestros/pecas-musicais
+Content-Type: application/json
+Authorization: Bearer {{token_felipinho}}
+
+{
+  "título": "Folhas do chão",
+  "tom": "C",
+  "duração": 3,
+  "gênero": "Pop",
+  "cpf": "222.333.444-55",
+  "internacional": false
+}
+
+### Buscar todas as peças musicais (para obter os IDs)
+GET http://localhost:3333/patrocinadores/patrocinios/pecas-musicais
+Authorization: Bearer {{token_paula}}
+
+### Patrocínio de Paula Matos para "In the End"
+POST http://localhost:3333/patrocinadores/patrocinios
+Content-Type: application/json
+Authorization: Bearer {{token_paula}}
+
+{
+  "id_peça": 2,
+  "orçamento_disponível": 10000.00,
+  "cpf": "444.555.666-77"
+}
+
+### Patrocínio de Paula Matos para "Mais que um mero poema"
+POST http://localhost:3333/patrocinadores/patrocinios
+Content-Type: application/json
+Authorization: Bearer {{token_paula}}
+
+{
+  "id_peça": 3,
+  "orçamento_disponível": 8888.00,
+  "cpf": "444.555.666-77"
+}
+
+### Patrocínio de Pedrinho para "It's my life"
+POST http://localhost:3333/patrocinadores/patrocinios
+Content-Type: application/json
+Authorization: Bearer {{token_pedrinho}}
+
+{
+  "id_peça": 7,
+  "orçamento_disponível": 6666.00,
+  "cpf": "333.444.555-66"
+}
+
+### Patrocínio de Pedrinho para "Folhas do chão"
+POST http://localhost:3333/patrocinadores/patrocinios
+Content-Type: application/json
+Authorization: Bearer {{token_pedrinho}}
+
+{
+  "id_peça": 4,
+  "orçamento_disponível": 3222.00,
+  "cpf": "333.444.555-66"
+}
