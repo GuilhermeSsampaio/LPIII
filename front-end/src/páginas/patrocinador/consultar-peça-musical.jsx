@@ -83,9 +83,7 @@ export default function ConsultarPeçaMusical() {
           <InputText
             name="duração"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
-            value={
-              peçaMusicalConsultada?.duração || peçaMusicalPatrocínio?.duração
-            }
+            value={peçaMusicalConsultada?.duração}
             disabled
           />
         </div>
@@ -96,7 +94,7 @@ export default function ConsultarPeçaMusical() {
           <InputText
             name="tom"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
-            value={peçaMusicalConsultada?.tom || peçaMusicalPatrocínio?.tom}
+            value={peçaMusicalConsultada?.tom}
             disabled
           />
         </div>
@@ -107,9 +105,7 @@ export default function ConsultarPeçaMusical() {
           <InputText
             name="gênero"
             className={estilizarInputText(null, 400, usuárioLogado.cor_tema)}
-            value={
-              peçaMusicalConsultada?.gênero || peçaMusicalPatrocínio?.gênero
-            }
+            value={peçaMusicalConsultada?.gênero}
             disabled
           />
         </div>

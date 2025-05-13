@@ -5,9 +5,7 @@ import { Card } from "primereact/card";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
-import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
-import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoPatrocinador from "../../contextos/contexto-patrocinador";
 import mostrarToast from "../../utilitários/mostrar-toast";
@@ -23,9 +21,7 @@ import {
   estilizarDataTable,
   estilizarDataTablePaginator,
   estilizarDivider,
-  estilizarFilterMenu,
   estilizarFlex,
-  estilizarTriStateCheckbox,
 } from "../../utilitários/estilos";
 export default function AdministrarPatrocínios() {
   const referênciaToast = useRef(null);

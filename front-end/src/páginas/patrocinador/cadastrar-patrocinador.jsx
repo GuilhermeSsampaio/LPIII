@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
-import { Dropdown } from "primereact/dropdown";
 import { InputMask } from "primereact/inputmask";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-import { ANO_MÁSCARA, TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
+import { TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
 import {
   serviçoCadastrarPatrocinador,
   serviçoAtualizarPatrocinador,
@@ -27,7 +26,6 @@ import {
   estilizarCard,
   estilizarDivCampo,
   estilizarDivider,
-  estilizarDropdown,
   estilizarFlex,
   estilizarInlineFlex,
   estilizarInputMask,
@@ -155,7 +153,7 @@ export default function CadastrarPatrocinador() {
         className={estilizarCard(usuárioLogado.cor_tema)}
       >
         <div className={estilizarDivCampo()}>
-          <label className={estilizarLabel(dados.cor_tema)}>empresa*:</label>
+          <label className={estilizarLabel(dados.cor_tema)}>Empresa*:</label>
           <InputText
             name="empresa"
             className={estilizarInputText(erros.empresa, 400, dados.cor_tema)}
