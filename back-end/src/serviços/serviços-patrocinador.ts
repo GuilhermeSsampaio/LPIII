@@ -9,7 +9,8 @@ export default class ServiçosPatrocinador {
   constructor() {}
   static async cadastrarPatrocínio(request, response) {
     try {
-      const { id_peça, orçamento_disponível, cpf } = request.body;
+      const { id_peça, orçamento_disponível, cpf, show_exposicao } =
+        request.body;
       const cpf_encriptado = md5(cpf);
       const patrocinador = await Patrocinador.findOne({
         where: { usuário: cpf_encriptado },
@@ -26,6 +27,7 @@ export default class ServiçosPatrocinador {
         orçamento_disponível,
         patrocinador,
         peça_musical,
+        show_exposicao,
       }).save();
       return response.json();
     } catch (error) {

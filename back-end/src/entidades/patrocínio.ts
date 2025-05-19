@@ -21,6 +21,9 @@ export default class Patrocínio extends BaseEntity {
   @CreateDateColumn()
   data_proposta: Date;
 
+  @Column()
+  show_exposicao: boolean;
+
   @ManyToOne(() => PeçaMusical, (peça_musical) => peça_musical.patrocínios, {
     onDelete: "CASCADE",
   })
