@@ -5,6 +5,7 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoPatrocinador from "../../contextos/contexto-patrocinador";
@@ -30,6 +31,7 @@ import {
   estilizarInputNumber,
   estilizarInputText,
   estilizarLabel,
+  estilizarCheckbox,
 } from "../../utilitários/estilos";
 export default function CadastrarPatrocínio() {
   const referênciaToast = useRef(null);
@@ -39,13 +41,13 @@ export default function CadastrarPatrocínio() {
   const [dados, setDados] = useState({
     id_peça: peçaMusicalSelecionada?.id || "",
     orçamento_disponível: patrocínioConsultado?.orçamento_disponível || "",
+    show_exposicao: patrocínioConsultado?.show_exposicao || false,
   });
   const [erros, setErros] = useState({});
   const navegar = useNavigate();
-
   function alterarEstado(event) {
     const chave = event.target.name || event.value;
-    let valor = event.target.value;
+    let valor = event.target.value || event.checked;
     setDados({ ...dados, [chave]: valor });
   }
 
@@ -226,6 +228,20 @@ export default function CadastrarPatrocínio() {
             )}
           />
           <MostrarMensagemErro mensagem={erros.orçamento_disponível} />
+        </div>
+
+        <div className={estilizarDivCampo()}>
+          <label className={estilizarLabel(usuárioLogado.cor_tema)}>
+            Show de exposição?*:
+          </label>{" "}
+          <Checkbox
+            name="show_exposicao"
+            checked={dados.show_exposicao}
+            onChange={alterarEstado}
+            className={estilizarCheckbox(null)}
+            autoResize
+          />
+          <MostrarMensagemErro mensagem={erros.show_exposicao} />
         </div>
 
         <Divider className={estilizarDivider()} />

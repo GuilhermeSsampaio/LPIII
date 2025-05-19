@@ -1,8 +1,8 @@
 @baseUrl = http://localhost:3333
-@token_joao =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJtYWVzdHJvIiwiZW1haWwiOiJqb2FvLmZlcm5hbmRlc0BlbWFpbC5jb20iLCJpYXQiOjE3NDcwOTIxMzMsImV4cCI6MTc0NzE3ODUzMywic3ViIjoiSm_Do28gRmVybmFuZGVzIn0.eZLn2JeIHCBSDx02lkV_IiwvoTHtK2PxJf6jnfHH3t0
-@token_felipinho = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJtYWVzdHJvIiwiZW1haWwiOiJmZWxpcGluaG8ubWVuZGVzQGVtYWlsLmNvbSIsImlhdCI6MTc0NzA5MTk5OSwiZXhwIjoxNzQ3MTc4Mzk5LCJzdWIiOiJGZWxpcGluaG8gTWVuZGVzIn0.DzneSnBxonxUrvKV354Lr3dbAto0bz_iJNSUj2GKGX0
-@token_pedrinho = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJwYXRyb2NpbmFkb3IiLCJlbWFpbCI6InBlZHJpbmhvQGVtYWlsLmNvbSIsImlhdCI6MTc0NzA5MjAyMSwiZXhwIjoxNzQ3MTc4NDIxLCJzdWIiOiJQZWRyaW5obyJ9.OoI_6c2WJDwlNiHf224Sg7c-SS_r7GCXJyFOwY0bRLY
-@token_paula = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJmaWwiOiJwYXRyb2NpbmFkb3IiLCJlbWFpbCI6InBhdWxhLm1hdG9zQGVtYWlsLmNvbSIsImlhdCI6MTc0NzA5MjAzOSwiZXhwIjoxNzQ3MTc4NDM5LCJzdWIiOiJQYXVsYSBNYXRvcyJ9.jyiGcoQYhrj4bgW51Ij4nBmsCTng1_DiJlUAlegVoPE
+@token_joao =
+@token_felipinho =
+@token_pedrinho = 
+@token_paula = 
 
 ### Cadastro do Maestro João Fernandes com todos os dados do usuário
 POST http://localhost:3333/maestros
@@ -176,6 +176,34 @@ Authorization: Bearer {{token_felipinho}}
   "internacional": false
 }
 
+### Cadastro da Peça "Symphony of Dreams" - João Fernandes
+POST http://localhost:3333/maestros/pecas-musicais
+Content-Type: application/json
+Authorization: Bearer {{token_joao}}
+
+{
+  "título": "Symphony of Dreams",
+  "tom": "G",
+  "duração": 6,
+  "gênero": "Clássico",
+  "cpf": "111.222.333-44",
+  "internacional": false
+}
+
+### Cadastro da Peça "Caminhos do Sol" - Felipinho Mendes
+POST http://localhost:3333/maestros/pecas-musicais
+Content-Type: application/json
+Authorization: Bearer {{token_felipinho}}
+
+{
+  "título": "Caminhos do Sol",
+  "tom": "A",
+  "duração": 4,
+  "gênero": "rock",
+  "cpf": "222.333.444-55",
+  "internacional": false
+}
+
 ### Buscar todas as peças musicais (para obter os IDs)
 GET http://localhost:3333/patrocinadores/patrocinios/pecas-musicais
 Authorization: Bearer {{token_paula}}
@@ -208,7 +236,7 @@ Content-Type: application/json
 Authorization: Bearer {{token_pedrinho}}
 
 {
-  "id_peça": 7,
+  "id_peça": 1,
   "orçamento_disponível": 6666.00,
   "cpf": "333.444.555-66"
 }
@@ -221,5 +249,30 @@ Authorization: Bearer {{token_pedrinho}}
 {
   "id_peça": 4,
   "orçamento_disponível": 3222.00,
-  "cpf": "333.444.555-66"
+  "cpf": "333.444.555-66",
+  "show_exposicao": true
+}
+
+### Patrocínio de Paula Matos para "Symphony of Dreams"
+POST http://localhost:3333/patrocinadores/patrocinios
+Content-Type: application/json
+Authorization: Bearer {{token_paula}}
+
+{
+  "id_peça": 5,
+  "orçamento_disponível": 12000.00,
+  "cpf": "444.555.666-77",
+  "show_exposicao": false
+}
+
+### Patrocínio de Pedrinho para "Caminhos do Sol"
+POST http://localhost:3333/patrocinadores/patrocinios
+Content-Type: application/json
+Authorization: Bearer {{token_pedrinho}}
+
+{
+  "id_peça": 6,
+  "orçamento_disponível": 5000.00,
+  "cpf": "333.444.555-66",
+  "show_exposicao": true
 }

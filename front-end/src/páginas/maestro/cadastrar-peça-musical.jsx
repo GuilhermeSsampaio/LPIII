@@ -280,6 +280,7 @@ export default function CadastrarPeçaMusical() {
             className={estilizarCheckbox(null)}
             autoResize
           />
+          <MostrarMensagemErro mensagem={erros.internacional} />
         </div>
 
         <Divider className={estilizarDivider()} />

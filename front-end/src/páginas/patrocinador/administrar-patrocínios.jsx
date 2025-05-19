@@ -6,6 +6,8 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Divider } from "primereact/divider";
 import { Toast } from "primereact/toast";
+import { TriStateCheckbox } from "primereact/tristatecheckbox";
+
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoPatrocinador from "../../contextos/contexto-patrocinador";
 import mostrarToast from "../../utilitários/mostrar-toast";
@@ -22,7 +24,10 @@ import {
   estilizarDataTablePaginator,
   estilizarDivider,
   estilizarFlex,
+  estilizarTriStateCheckbox,
+  estilizarFilterMenu,
 } from "../../utilitários/estilos";
+
 export default function AdministrarPatrocínios() {
   const referênciaToast = useRef(null);
   const { usuárioLogado } = useContext(ContextoUsuário);
@@ -79,6 +84,27 @@ export default function AdministrarPatrocínios() {
       }).format(patrocínio.orçamento_disponível);
     }
     return "";
+  }
+
+  function BooleanBodyTemplate(patrocínio) {
+    if (patrocínio.show_exposicao) return "Sim";
+    else return "Não";
+  }
+
+  function BooleanFilterTemplate(opções) {
+    function alterarFiltroTriState(event) {
+      return opções.filterCallback(event.value);
+    }
+    return (
+      <div>
+        <label>Show de exposição</label>
+        <TriStateCheckbox
+          className={estilizarTriStateCheckbox(usuárioLogado?.cor_tema)}
+          value={opções.value}
+          onChange={alterarFiltroTriState}
+        />
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -156,6 +182,21 @@ export default function AdministrarPatrocínios() {
             filter
             showFilterOperator={false}
             headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
+            sortable
+          />
+          <Column
+            field="show_exposicao"
+            header="Show de exposição"
+            body={BooleanBodyTemplate}
+            filter
+            filterElement={BooleanFilterTemplate}
+            filterMatchMode="equals"
+            showFilterOperator={false}
+            headerClassName={estilizarColumnHeader(usuárioLogado.cor_tema)}
+            showClearButton={false}
+            showFilterMatchModes={false}
+            filterMenuClassName={estilizarFilterMenu()}
+            showFilterMenuOptions={false}
             sortable
           />
         </DataTable>
