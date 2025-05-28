@@ -55,11 +55,12 @@ export default function ConsultarPeçaMusical() {
 
   function consultarMaestroProponente() {
     if (peçaMusicalConsultada) {
+      console.log(peçaMusicalConsultada.maestro);
       setMaestroProponente(peçaMusicalConsultada.maestro);
     } else if (peçaMusicalPatrocínio) {
       setMaestroProponente(peçaMusicalPatrocínio.maestro);
     }
-    navegar("../consultar-maestro-proponente");
+    navegar("../consultar-maestro");
   }
   return (
     <div className={estilizarFlex()}>

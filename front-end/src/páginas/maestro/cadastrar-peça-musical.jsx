@@ -186,7 +186,7 @@ export default function CadastrarPeçaMusical() {
   }
 
   function mostrarPatrocínios() {
-    navegar("../pesquisar-interesses");
+    navegar("../pesquisar-patrocinios");
   }
 
   useEffect(() => {

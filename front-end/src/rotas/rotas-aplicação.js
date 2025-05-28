@@ -18,7 +18,7 @@ import PesquisarPeçasMusicais from "../páginas/patrocinador/pesquisar-peças-m
 import ConsultarPeçaMusical from "../páginas/patrocinador/consultar-peça-musical";
 import PesquisarPatrocínios from "../páginas/maestro/pesquisar-patrocínios";
 import ConsultarPatrocínio from "../páginas/maestro/consultar-patrocínio";
-import ConsultarPatrocinador from "../páginas/patrocinador/consultar-patrocinador";
+import ConsultarPatrocinador from "../páginas/maestro/consultar-patrocinador";
 import ConsultarMaestro from "../páginas/patrocinador/consultar-maestro";
 export default function Rotas() {
   return (
@@ -89,10 +89,7 @@ export default function Rotas() {
               element={<ConsultarPeçaMusical />}
               path="consultar-peca-musical"
             />
-            <Route
-              element={<ConsultarMaestro />}
-              path="consultar-maestro-proponente"
-            />
+            <Route element={<ConsultarMaestro />} path="consultar-maestro" />
           </Route>
         </Route>
       </Routes>

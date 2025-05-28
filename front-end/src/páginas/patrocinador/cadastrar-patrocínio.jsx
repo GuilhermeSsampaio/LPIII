@@ -146,7 +146,7 @@ export default function CadastrarPatrocínio() {
   }
 
   function títuloFormulário() {
-    if (patrocínioConsultado) return "Remover Patrocínio";
+    if (patrocínioConsultado) return "Alterar Patrocínio";
     else return "Cadastrar Patrocínio";
   }
 
@@ -201,9 +201,9 @@ export default function CadastrarPatrocínio() {
   }
 
   function consultarPeçaMusicalPatrocínio() {
-    setPeçaMusicalConsultada(null);
     setPeçaMusicalPatrocínio(patrocínioConsultado?.peça_musical);
-    navegar("../consultar-proposta");
+    setPeçaMusicalConsultada(patrocínioConsultado?.peça_musical);
+    navegar("../consultar-peca-musical");
   }
   return (
     <div className={estilizarFlex()}>

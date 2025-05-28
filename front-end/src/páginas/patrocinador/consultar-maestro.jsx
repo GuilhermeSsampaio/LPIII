@@ -19,13 +19,14 @@ import {
 } from "../../utilitários/estilos";
 export default function ConsultarMaestro() {
   const { usuárioLogado } = useContext(ContextoUsuário);
-  const { maestroConsultado } = useContext(ContextoPatrocinador);
+  const { maestroProponente } = useContext(ContextoPatrocinador);
   const dados = {
-    nome_maestro: maestroConsultado?.usuário?.nome,
-    estilo: maestroConsultado?.estilo,
-    anos_experiência: maestroConsultado?.anos_experiência,
-    nacionalidade: maestroConsultado?.nacionalidade,
+    nome_maestro: maestroProponente?.usuário?.nome,
+    estilo: maestroProponente?.estilo,
+    anos_experiência: maestroProponente?.anos_experiência,
+    nacionalidade: maestroProponente?.nacionalidade,
   };
+  console.log("dads", maestroProponente);
   const navegar = useNavigate();
   function retornarConsultarPatrocínio() {
     navegar("/consultar-patrocinio");
