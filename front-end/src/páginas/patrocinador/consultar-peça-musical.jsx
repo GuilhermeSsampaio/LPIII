@@ -10,6 +10,7 @@ import ContextoUsuário from "../../contextos/contexto-usuário";
 import ContextoPatrocinador from "../../contextos/contexto-patrocinador";
 import {
   estilizarBotãoRetornar,
+  estilizarBotão,
   estilizarCard,
   estilizarCheckbox,
   estilizarDivCampo,
@@ -21,8 +22,11 @@ import {
 } from "../../utilitários/estilos";
 export default function ConsultarPeçaMusical() {
   const { usuárioLogado } = useContext(ContextoUsuário);
-  const { peçaMusicalConsultada, peçaMusicalInteresse: peçaMusicalPatrocínio } =
-    useContext(ContextoPatrocinador);
+  const {
+    peçaMusicalConsultada,
+    peçaMusicalInteresse: peçaMusicalPatrocínio,
+    setMaestroProponente,
+  } = useContext(ContextoPatrocinador);
   const dados = {
     nome_maestro:
       peçaMusicalConsultada?.maestro?.usuário?.nome ||
@@ -47,6 +51,15 @@ export default function ConsultarPeçaMusical() {
   function retornar() {
     if (peçaMusicalConsultada) navegar("../pesquisar-pecas-musicais");
     else if (peçaMusicalPatrocínio) navegar("../cadastrar-patrocinio");
+  }
+
+  function consultarMaestroProponente() {
+    if (peçaMusicalConsultada) {
+      setMaestroProponente(peçaMusicalConsultada.maestro);
+    } else if (peçaMusicalPatrocínio) {
+      setMaestroProponente(peçaMusicalPatrocínio.maestro);
+    }
+    navegar("../consultar-maestro-proponente");
   }
   return (
     <div className={estilizarFlex()}>
@@ -127,6 +140,11 @@ export default function ConsultarPeçaMusical() {
             className={estilizarBotãoRetornar()}
             label="Retornar"
             onClick={retornar}
+          />
+          <Button
+            className={estilizarBotão()}
+            label="Maestro"
+            onClick={consultarMaestroProponente}
           />
         </div>
       </Card>

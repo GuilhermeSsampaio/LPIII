@@ -6,6 +6,7 @@ export function ProvedorPatrocinador({ children }) {
   const [peçaMusicalConsultada, setPeçaMusicalConsultada] = useState({});
   const [peçaMusicalSelecionada, setPeçaMusicalSelecionada] = useState({});
   const [peçaMusicalPatrocínio, setPeçaMusicalPatrocínio] = useState({});
+  const [maestroProponente, setMaestroProponente] = useState([]);
   return (
     <ContextoPatrocinador.Provider
       value={{
@@ -17,6 +18,8 @@ export function ProvedorPatrocinador({ children }) {
         setPeçaMusicalSelecionada,
         peçaMusicalPatrocínio,
         setPeçaMusicalPatrocínio,
+        maestroProponente,
+        setMaestroProponente,
       }}
     >
       {children}

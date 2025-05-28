@@ -16,7 +16,10 @@ import AdministrarPatrocínios from "../páginas/patrocinador/administrar-patroc
 import CadastrarPatrocínio from "../páginas/patrocinador/cadastrar-patrocínio";
 import PesquisarPeçasMusicais from "../páginas/patrocinador/pesquisar-peças-musicais";
 import ConsultarPeçaMusical from "../páginas/patrocinador/consultar-peça-musical";
-
+import PesquisarPatrocínios from "../páginas/maestro/pesquisar-patrocínios";
+import ConsultarPatrocínio from "../páginas/maestro/consultar-patrocínio";
+import ConsultarPatrocinador from "../páginas/patrocinador/consultar-patrocinador";
+import ConsultarMaestro from "../páginas/patrocinador/consultar-maestro";
 export default function Rotas() {
   return (
     <BrowserRouter>
@@ -44,6 +47,18 @@ export default function Rotas() {
             <Route
               element={<CadastrarPeçaMusical />}
               path="cadastrar-peca-musical"
+            />
+            <Route
+              element={<PesquisarPatrocínios />}
+              path="pesquisar-patrocinios"
+            />
+            <Route
+              element={<ConsultarPatrocínio />}
+              path="consultar-patrocinio"
+            />
+            <Route
+              element={<ConsultarPatrocinador />}
+              path="consultar-patrocinador"
             />
           </Route>
 
@@ -73,6 +88,10 @@ export default function Rotas() {
             <Route
               element={<ConsultarPeçaMusical />}
               path="consultar-peca-musical"
+            />
+            <Route
+              element={<ConsultarMaestro />}
+              path="consultar-maestro-proponente"
             />
           </Route>
         </Route>

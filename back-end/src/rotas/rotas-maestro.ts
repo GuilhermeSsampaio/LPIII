@@ -53,3 +53,10 @@ RotasMaestro.get(
   verificarPerfilMaestro,
   ServiçosMaestro.buscarPatrocíniosPeçasMusicais
 );
+
+RotasMaestro.get(
+  "/patrocicios/:id_peca_musical",
+  verificarToken,
+  verificarPerfilMaestro,
+  ServiçosMaestro.buscarPatrocíniosPeçaMusical
+);

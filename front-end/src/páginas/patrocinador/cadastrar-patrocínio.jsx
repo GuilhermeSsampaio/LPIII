@@ -36,8 +36,12 @@ import {
 export default function CadastrarPatrocínio() {
   const referênciaToast = useRef(null);
   const { usuárioLogado } = useContext(ContextoUsuário);
-  const { patrocínioConsultado, peçaMusicalSelecionada } =
-    useContext(ContextoPatrocinador);
+  const {
+    patrocínioConsultado,
+    peçaMusicalSelecionada,
+    setPeçaMusicalPatrocínio,
+    setPeçaMusicalConsultada,
+  } = useContext(ContextoPatrocinador);
   const [dados, setDados] = useState({
     id_peça: peçaMusicalSelecionada?.id || "",
     orçamento_disponível: patrocínioConsultado?.orçamento_disponível || "",
@@ -116,6 +120,11 @@ export default function CadastrarPatrocínio() {
             label="Remover"
             onClick={removerPatrocínio}
           />
+          <Button
+            className={estilizarBotão()}
+            label="Peça Musical"
+            onClick={consultarPeçaMusicalPatrocínio}
+          />
         </div>
       );
     } else {
@@ -191,6 +200,11 @@ export default function CadastrarPatrocínio() {
     } else return null;
   }
 
+  function consultarPeçaMusicalPatrocínio() {
+    setPeçaMusicalConsultada(null);
+    setPeçaMusicalPatrocínio(patrocínioConsultado?.peça_musical);
+    navegar("../consultar-proposta");
+  }
   return (
     <div className={estilizarFlex()}>
       <Toast

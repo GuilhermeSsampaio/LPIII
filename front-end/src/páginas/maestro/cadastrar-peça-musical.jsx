@@ -106,7 +106,6 @@ export default function CadastrarPeçaMusical() {
   async function alterarPeçaMusical() {
     if (validarCampos()) {
       try {
-        // Usamos diretamente o gênero, sem precisar renomear
         const dadosAjustados = {
           ...dados,
           id: peçaMusicalConsultada.id,
@@ -156,6 +155,11 @@ export default function CadastrarPeçaMusical() {
             label="Alterar"
             onClick={alterarPeçaMusical}
           />
+          <Button
+            className={estilizarBotão()}
+            label="Patrocínios"
+            onClick={mostrarPatrocínios}
+          />
         </div>
       );
     } else {
@@ -179,6 +183,10 @@ export default function CadastrarPeçaMusical() {
   function títuloFormulário() {
     if (peçaMusicalConsultada) return "Alterar Peça Musical";
     else return "Cadastrar Peça Musical";
+  }
+
+  function mostrarPatrocínios() {
+    navegar("../pesquisar-interesses");
   }
 
   useEffect(() => {
