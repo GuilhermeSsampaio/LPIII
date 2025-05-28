@@ -173,7 +173,7 @@ export default class ServiçosMaestro {
       const id_peça_musical = request.params.id_peça_musical;
       const patrocínios = await Patrocínio.find({
         where: { peça_musical: { id: id_peça_musical } },
-        relations: ["maestro", "maestro.usuário", "peça_musical"],
+        relations: ["patrocinador", "patrocinador.usuário", "peça_musical"],
       });
       return response.json(patrocínios);
     } catch (error) {
