@@ -29,7 +29,7 @@ export default function ConsultarMaestro() {
   console.log("dads", maestroProponente);
   const navegar = useNavigate();
   function retornarConsultarPatrocínio() {
-    navegar("/consultar-patrocinio");
+    navegar("/consultar-peca-musical");
   }
   return (
     <div className={estilizarFlex()}>

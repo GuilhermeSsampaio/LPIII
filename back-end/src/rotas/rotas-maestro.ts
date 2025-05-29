@@ -54,9 +54,8 @@ RotasMaestro.get(
   ServiçosMaestro.buscarPatrocíniosPeçasMusicais
 );
 
+// Rota para buscar patrocínios de uma peça musical específica
 RotasMaestro.get(
-  "/patrocinios/:id_peca_musical",
-  verificarToken,
-  verificarPerfilMaestro,
+  "/pecas-musicais/:id/patrocinios",
   ServiçosMaestro.buscarPatrocíniosPeçaMusical
 );

@@ -107,7 +107,6 @@ export default function PesquisarPatrocínios() {
     buscarPatrocíniosPeçaMusical();
     return () => (desmontado = true);
   }, [peçaMusicalConsultada?.id]);
-  //   mudar as colunas
   return (
     <div className={estilizarFlex()}>
       <Toast ref={referênciaToast} position="bottom-center" />

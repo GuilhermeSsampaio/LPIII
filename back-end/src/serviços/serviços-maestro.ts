@@ -170,7 +170,7 @@ export default class ServiçosMaestro {
 
   static async buscarPatrocíniosPeçaMusical(request, response) {
     try {
-      const id_peça_musical = request.params.id_peça_musical;
+      const id_peça_musical = request.params.id;
       const patrocínios = await Patrocínio.find({
         where: { peça_musical: { id: id_peça_musical } },
         relations: ["patrocinador", "patrocinador.usuário", "peça_musical"],
@@ -179,7 +179,7 @@ export default class ServiçosMaestro {
     } catch (error) {
       return response
         .status(500)
-        .json({ erro: "Erro BD : buscarPatrocíniosPeçasMusicais" });
+        .json({ erro: "Erro BD : buscarPatrocíniosPeçaMusical" });
     }
   }
 }

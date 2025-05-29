@@ -33,5 +33,7 @@ export function serviçoBuscarPatrocíniosPeçasMusicais() {
 }
 
 export function serviçoBuscarPatrocíniosPeçaMusical(id_peca_musical) {
-  return servidor.get(`/maestros/patrocinios/${id_peca_musical}`);
+  return servidor.get(
+    `/maestros/pecas-musicais/${id_peca_musical}/patrocinios`
+  );
 }
