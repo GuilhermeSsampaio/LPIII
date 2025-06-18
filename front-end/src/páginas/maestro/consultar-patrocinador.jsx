@@ -24,7 +24,7 @@ import {
 export default function ConsultarPatrocinador() {
   const { usuárioLogado } = useContext(ContextoUsuário);
   const { patrocinadorConsultado } = useContext(ContextoMaestro);
-
+  console.log("patrocinadorConsultado", patrocinadorConsultado);
   const dados = {
     nome: patrocinadorConsultado?.usuário?.nome,
     empresa: patrocinadorConsultado?.empresa,
