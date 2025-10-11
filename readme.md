@@ -1,56 +1,50 @@
 ## Trabalho de LPIII
 
-### Projeto: Patrocínios para Peças Musicais
+### Projeto: Encomenda de Cervejas Artesanais
 
 **Linguagem de Programação III – Guilherme Silva Sampaio**
 
 ### Título do Projeto
 
-Patrocínios para Peças Musicais
+Encomenda de Cervejas Artesanais
 
 ### Entidades e Relacionamentos
 
 - **Usuário**
-  - Maestro (proponente)
-  - Patrocinador (interessado)
+  - Criador (produtor de cervejas)
+  - Gerente de Empório (comprador)
 - **Relacionamentos**
-  - Maestro [1:n] PeçaMusical
-  - Patrocinador [1:n] Patrocínio
-  - Patrocínio : Patrocinador - PeçaMusical
+  - Criador [1:n] CervejaArtesanal
+  - GerenteEmporio [1:n] Encomenda
+  - Encomenda : GerenteEmporio - CervejaArtesanal
 
 ### Entidades, Atributos e Referências
 
 - **Usuário**
-  - Atributos: cpf, nome, email, perfil, status, senha, questão, resposta, cor_tema
-  - Maestro: nacionalidade, anos_experiência, estilo, peças_musicais, usuário
-  - Patrocinador: email, tipo, telefone, patrocínios, usuário
-- **PeçaMusical**
-  - Atributos: id, título, duração, tom, gênero, maestro, patrocínios
-- **Patrocínio**
-  - Atributos: id, orçamento_disponível, data_proposta, peça_musical, patrocinador
+  - Atributos: id, nome, email, cpf, senha, perfil, status, questao_seguranca, resposta_seguranca, cor_tema
+  - Criador: id, pais_origem, ano_fundacao, estilo_cerveja_especializado, usuario
+  - GerenteEmporio: id, telefone, localizacao_pais, nivel_experiencia, usuario
+- **CervejaArtesanal**
+  - Atributos: id, nome, teor_alcoolico, categoria, disponibilidade, contem_gluten, criador
+- **Encomenda**
+  - Atributos: id, data, quantidade, valor_total, nota_fiscal_emitida, cerveja_artesanal, gerente_emporio
 
 ### Enumerados
 
 - **Usuário**
-  - Perfil: maestro, patrocinador
+  - Perfil: criador, gerente_emporio
   - Status: ativo, inativo, pendente
   - Cores: amarelo, anil, azul, azul_piscina, cinza_escuro, laranja, rosa, roxo, verde, verde_azulado
-- **Maestro**
-  - Nacionalidade: brasileiro, estrangeiro
-  - Estilo: simples, elegante
-- **Patrocinador**
-  - Tipo: pessoa_física, empresa
-- **PeçaMusical**
-  - Estilo: rock, pop, clássica
 
-### Filtros: Administrar e Pesquisar
+### Funcionalidades
 
-- **Maestro**
-  - Administrar Peças Musicais: título, categoria, repertório, orçamento_estimado
-  - Pesquisar Patrocínios: nome_patrocinador, título_proposta, categoria_proposta, orçamento_disponível
-- **Patrocinador**
-  - Administrar Patrocínios: nome_maestro, categoria_proposta, título_proposta, orçamento_estimado
-  - Pesquisar Peças Musicais: nome_maestro, título, categoria, repertório, orçamento_estimado
+- **Criador**
+  - Gerenciar Cervejas: nome, teor_alcoolico, categoria, disponibilidade, contem_gluten
+  - Encomendas Recebidas: visualizar encomendas de gerentes de empório
+- **Gerente de Empório**
+  - Catálogo de Cervejas: visualizar cervejas disponíveis
+  - Fazer Encomenda: criar nova encomenda de cerveja
+  - Minhas Encomendas: listar, editar e excluir encomendas
 
 ## Rodar o projeto
 
