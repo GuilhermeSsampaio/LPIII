@@ -54,6 +54,10 @@ export default function ModalConfirmaçãoUsuário() {
 
   function exibirPerfilFormatado() {
     switch (dados.perfil) {
+      case "criador":
+        return "Criador";
+      case "gerente_emporio":
+        return "Gerente de Empório";
       case "maestro":
         return "Maestro";
       case "patrocinador":
@@ -71,7 +75,15 @@ export default function ModalConfirmaçãoUsuário() {
     }
   }
   function finalizarCadastro() {
-    if (dados.perfil === "maestro") {
+    if (dados.perfil === "criador") {
+      setUsuárioLogado({ ...dados, cadastrado: false });
+      setMostrarModalConfirmação(false);
+      navegar("../cadastrar-criador");
+    } else if (dados.perfil === "gerente_emporio") {
+      setUsuárioLogado({ ...dados, cadastrado: false });
+      setMostrarModalConfirmação(false);
+      navegar("../cadastrar-gerente-emporio");
+    } else if (dados.perfil === "maestro") {
       setUsuárioLogado({ ...dados, cadastrado: false });
       setMostrarModalConfirmação(false);
       navegar("../cadastrar-maestro");

@@ -25,6 +25,60 @@ export default function MenuLateral({ children }) {
   const tamanhoDesktop = windowWidth > 991;
   const navegar = useNavigate();
 
+  const opçõesCriador = [
+    { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+    {
+      label: "Menu",
+      items: [
+        {
+          label: "Cadastrar Usuário",
+          command: () => navegar("/atualizar-usuario"),
+          disabled: usuárioLogado.status !== "ativo",
+        },
+        {
+          label: "Cadastrar Criador",
+          command: () => navegar("/cadastrar-criador"),
+        },
+        {
+          label: "Gerenciar Cervejas",
+          command: () => navegar("/gerenciar-cervejas"),
+        },
+        {
+          label: "Encomendas Recebidas",
+          command: () => navegar("/encomendas-recebidas"),
+        },
+        { label: "Sair do Sistema", command: () => sairSistema() },
+      ],
+    },
+  ];
+
+  const opçõesGerenteEmporio = [
+    { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+    {
+      label: "Menu",
+      items: [
+        {
+          label: "Cadastrar Usuário",
+          command: () => navegar("/atualizar-usuario"),
+          disabled: usuárioLogado.status !== "ativo",
+        },
+        {
+          label: "Cadastrar Gerente de Empório",
+          command: () => navegar("/cadastrar-gerente-emporio"),
+        },
+        {
+          label: "Catálogo de Cervejas",
+          command: () => navegar("/catalogo-cervejas"),
+        },
+        {
+          label: "Minhas Encomendas",
+          command: () => navegar("/minhas-encomendas"),
+        },
+        { label: "Sair do Sistema", command: () => sairSistema() },
+      ],
+    },
+  ];
+
   const opçõesMaestro = [
     { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
     {
@@ -78,6 +132,10 @@ export default function MenuLateral({ children }) {
 
   function opçõesMenu() {
     switch (usuárioLogado.perfil) {
+      case "criador":
+        return opçõesCriador;
+      case "gerente_emporio":
+        return opçõesGerenteEmporio;
       case "maestro":
         return opçõesMaestro;
       case "patrocinador":

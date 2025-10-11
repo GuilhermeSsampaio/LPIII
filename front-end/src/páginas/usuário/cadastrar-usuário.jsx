@@ -72,8 +72,8 @@ export default function CadastrarUsuário() {
   const [erros, setErros] = useState({});
 
   const opçõesPerfis = [
-    { label: "Maestro", value: "maestro" },
-    { label: "Patrocinador", value: "patrocinador" },
+    { label: "Criador", value: "criador" },
+    { label: "Gerente de Empório", value: "gerente_emporio" },
   ];
 
   function alterarEstado(event) {

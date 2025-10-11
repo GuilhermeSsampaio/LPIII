@@ -3,23 +3,20 @@ import RotasUsuárioLogado from "./rotas-usuário-logado";
 import LogarUsuário from "../páginas/usuário/logar-usuário";
 import CadastrarUsuário from "../páginas/usuário/cadastrar-usuário";
 import PáginaInicial from "../páginas/usuário/página-inicial";
-import CadastrarMaestro from "../páginas/maestro/cadastrar-maestro";
+import CadastrarCriador from "../páginas/criador/cadastrar-criador";
 import RecuperarAcesso from "../páginas/usuário/recuperar-acesso";
-import CadastrarPatrocinador from "../páginas/patrocinador/cadastrar-patrocinador";
-import { ProvedorMaestro } from "../contextos/contexto-maestro";
-import { ProvedorPatrocinador } from "../contextos/contexto-patrocinador";
-import RotasMaestro from "./rotas-maestro";
-import RotasPatrocinador from "./rotas-patrocinador";
-import AdministrarPeçasMusicais from "../páginas/maestro/administrar-peças-musicais";
-import CadastrarPeçaMusical from "../páginas/maestro/cadastrar-peça-musical";
-import AdministrarPatrocínios from "../páginas/patrocinador/administrar-patrocínios";
-import CadastrarPatrocínio from "../páginas/patrocinador/cadastrar-patrocínio";
-import PesquisarPeçasMusicais from "../páginas/patrocinador/pesquisar-peças-musicais";
-import ConsultarPeçaMusical from "../páginas/patrocinador/consultar-peça-musical";
-import PesquisarPatrocínios from "../páginas/maestro/pesquisar-patrocínios";
-import ConsultarPatrocínio from "../páginas/maestro/consultar-patrocínio";
-import ConsultarPatrocinador from "../páginas/maestro/consultar-patrocinador";
-import ConsultarMaestro from "../páginas/patrocinador/consultar-maestro";
+import CadastrarGerenteEmporio from "../páginas/gerente-emporio/cadastrar-gerente-emporio";
+import { ProvedorCriador } from "../contextos/contexto-criador";
+import { ProvedorGerenteEmporio } from "../contextos/contexto-gerente-emporio";
+import RotasCriador from "./rotas-criador";
+import RotasGerenteEmporio from "./rotas-gerente-emporio";
+import GerenciarCervejas from "../páginas/criador/gerenciar-cervejas";
+import CadastrarCerveja from "../páginas/criador/cadastrar-cerveja";
+import EncomendasRecebidas from "../páginas/criador/encomendas-recebidas";
+import CatalogoCervejas from "../páginas/gerente-emporio/catalogo-cervejas";
+import FazerEncomenda from "../páginas/gerente-emporio/fazer-encomenda";
+import MinhasEncomendas from "../páginas/gerente-emporio/minhas-encomendas";
+import EditarEncomenda from "../páginas/gerente-emporio/editar-encomenda";
 export default function Rotas() {
   return (
     <BrowserRouter>
@@ -34,62 +31,53 @@ export default function Rotas() {
 
           <Route
             element={
-              <ProvedorMaestro>
-                <RotasMaestro />
-              </ProvedorMaestro>
+              <ProvedorCriador>
+                <RotasCriador />
+              </ProvedorCriador>
             }
           >
-            <Route element={<CadastrarMaestro />} path="cadastrar-maestro" />
+            <Route element={<CadastrarCriador />} path="cadastrar-criador" />
             <Route
-              element={<AdministrarPeçasMusicais />}
-              path="administrar-pecas-musicais"
+              element={<GerenciarCervejas />}
+              path="gerenciar-cervejas"
             />
             <Route
-              element={<CadastrarPeçaMusical />}
-              path="cadastrar-peca-musical"
+              element={<CadastrarCerveja />}
+              path="cadastrar-cerveja"
             />
             <Route
-              element={<PesquisarPatrocínios />}
-              path="pesquisar-patrocinios"
-            />
-            <Route
-              element={<ConsultarPatrocínio />}
-              path="consultar-patrocinio"
-            />
-            <Route
-              element={<ConsultarPatrocinador />}
-              path="consultar-patrocinador"
+              element={<EncomendasRecebidas />}
+              path="encomendas-recebidas"
             />
           </Route>
 
           <Route
             element={
-              <ProvedorPatrocinador>
-                <RotasPatrocinador />
-              </ProvedorPatrocinador>
+              <ProvedorGerenteEmporio>
+                <RotasGerenteEmporio />
+              </ProvedorGerenteEmporio>
             }
           >
             <Route
-              element={<CadastrarPatrocinador />}
-              path="cadastrar-patrocinador"
+              element={<CadastrarGerenteEmporio />}
+              path="cadastrar-gerente-emporio"
             />
             <Route
-              element={<AdministrarPatrocínios />}
-              path="administrar-patrocinios"
+              element={<CatalogoCervejas />}
+              path="catalogo-cervejas"
             />
             <Route
-              element={<CadastrarPatrocínio />}
-              path="cadastrar-patrocinio"
+              element={<FazerEncomenda />}
+              path="fazer-encomenda"
             />
             <Route
-              element={<PesquisarPeçasMusicais />}
-              path="pesquisar-pecas-musicais"
+              element={<MinhasEncomendas />}
+              path="minhas-encomendas"
             />
             <Route
-              element={<ConsultarPeçaMusical />}
-              path="consultar-peca-musical"
+              element={<EditarEncomenda />}
+              path="editar-encomenda"
             />
-            <Route element={<ConsultarMaestro />} path="consultar-maestro" />
           </Route>
         </Route>
       </Routes>
