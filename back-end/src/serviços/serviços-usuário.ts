@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import md5 from "md5";
 import { sign } from "jsonwebtoken";
 import Usuário, { Perfil } from "../entidades/usuário";
-import Maestro from "../entidades/maestro";
-import Patrocinador from "../entidades/patrocinador";
+import Criador from "../entidades/criador";
+import GerenteEmporio from "../entidades/gerente-emporio";
 import { getManager } from "typeorm";
 
 dotenv.config();
@@ -18,7 +18,7 @@ export default class ServiçosUsuário {
     await ServiçosUsuário.listarTodosUsuários();
     try {
       const cpf_encriptado = md5(request.params.cpf);
-      const usuário = await Usuário.findOne(cpf_encriptado);
+      const usuário = await Usuário.findOne({ where: { cpf: cpf_encriptado } });
       console.log("cpf", cpf_encriptado);
       if (usuário)
         return response.status(400).json({ erro: "CPF já cadastrado." });
@@ -56,19 +56,19 @@ export default class ServiçosUsuário {
 
   static async verificarCadastroCompleto(usuário: Usuário) {
     switch (usuário.perfil) {
-      case Perfil.MAESTRO:
-        const maestro = await Maestro.findOne({
-          where: { usuário: usuário.cpf },
-          relations: ["usuário"],
+      case Perfil.CRIADOR:
+        const criador = await Criador.findOne({
+          where: { usuario: usuário.id },
+          relations: ["usuario"],
         });
-        if (!maestro) return false;
+        if (!criador) return false;
         return true;
-      case Perfil.PATROCINADOR:
-        const patrocinador = await Patrocinador.findOne({
-          where: { usuário: usuário.cpf },
-          relations: ["usuário"],
+      case Perfil.GERENTE_EMPORIO:
+        const gerente_emporio = await GerenteEmporio.findOne({
+          where: { usuario: usuário.id },
+          relations: ["usuario"],
         });
-        if (!patrocinador) return false;
+        if (!gerente_emporio) return false;
         return true;
       default:
         return;
@@ -79,7 +79,7 @@ export default class ServiçosUsuário {
     try {
       const { nome_login, senha } = request.body;
       const cpf_encriptado = md5(nome_login);
-      const usuário = await Usuário.findOne(cpf_encriptado);
+      const usuário = await Usuário.findOne({ where: { cpf: cpf_encriptado } });
       if (!usuário)
         return response
           .status(404)
@@ -104,10 +104,12 @@ export default class ServiçosUsuário {
       );
       return response.json({
         usuárioLogado: {
+          id: usuário.id,
+          cpf: request.body.nome_login,
           nome: usuário.nome,
           perfil: usuário.perfil,
           email: usuário.email,
-          questão: usuário.questão,
+          questao_seguranca: usuário.questao_seguranca,
           status: usuário.status,
           cor_tema: usuário.cor_tema,
           token,
@@ -120,21 +122,20 @@ export default class ServiçosUsuário {
 
   static async cadastrarUsuário(usuário_informado) {
     try {
-      const { cpf, nome, perfil, email, senha, questão, resposta, cor_tema } =
+      const { cpf, nome, perfil, email, senha, questao_seguranca, resposta_seguranca, cor_tema } =
         usuário_informado;
       console.log("ServiçosUsuário.cadastrarUsuário:nome -- " + nome);
-      // console.log(JSON.parse(JSON.stringify(usuário_informado)));
       const cpf_encriptado = md5(cpf);
       const senha_encriptada = await bcrypt.hash(senha, SALT);
-      const resposta_encriptada = await bcrypt.hash(resposta, SALT);
+      const resposta_encriptada = resposta_seguranca ? await bcrypt.hash(resposta_seguranca, SALT) : null;
       const usuário = Usuário.create({
         cpf: cpf_encriptado,
         nome,
         perfil,
         email,
         senha: senha_encriptada,
-        questão,
-        resposta: resposta_encriptada,
+        questao_seguranca,
+        resposta_seguranca: resposta_encriptada,
         cor_tema,
       });
       const token = sign(
@@ -142,7 +143,9 @@ export default class ServiçosUsuário {
         SENHA_JWT,
         { subject: usuário.nome, expiresIn: "1d" }
       );
-      return { usuário, senha, token };
+      return { usuario: usuário, senha, token };
+    } catch (error) {
+      throw new Error("Erro BD: cadastrarUsuário");
     } catch (error) {
       throw new Error("Erro BD: cadastrarUsuário");
     }
@@ -150,11 +153,11 @@ export default class ServiçosUsuário {
 
   static async alterarUsuário(request, response) {
     try {
-      const { cpf, senha, questão, resposta, cor_tema, email } = request.body;
+      const { cpf, senha, questao_seguranca, resposta_seguranca, cor_tema, email } = request.body;
       const cpf_encriptado = md5(cpf);
       let senha_encriptada: string, resposta_encriptada: string;
       let token: string;
-      const usuário = await Usuário.findOne(cpf_encriptado);
+      const usuário = await Usuário.findOne({ where: { cpf: cpf_encriptado } });
       if (email) {
         usuário.email = email;
         token = sign({ perfil: usuário.perfil, email }, SENHA_JWT, {
@@ -167,17 +170,18 @@ export default class ServiçosUsuário {
         senha_encriptada = await bcrypt.hash(senha, SALT);
         usuário.senha = senha_encriptada;
       }
-      if (resposta) {
-        resposta_encriptada = await bcrypt.hash(resposta, SALT);
-        usuário.questão = questão;
-        usuário.resposta = resposta_encriptada;
+      if (resposta_seguranca) {
+        resposta_encriptada = await bcrypt.hash(resposta_seguranca, SALT);
+        usuário.questao_seguranca = questao_seguranca;
+        usuário.resposta_seguranca = resposta_encriptada;
       }
       await Usuário.save(usuário);
       const usuário_info = {
+        id: usuário.id,
         nome: usuário.nome,
         perfil: usuário.perfil,
         email: usuário.email,
-        questão: usuário.questão,
+        questao_seguranca: usuário.questao_seguranca,
         status: usuário.status,
         cor_tema: usuário.cor_tema,
         token: null,
@@ -196,7 +200,7 @@ export default class ServiçosUsuário {
       await entityManager.transaction(async (transactionManager) => {
         const usuário = await transactionManager.findOne(
           Usuário,
-          cpf_encriptado
+          { where: { cpf: cpf_encriptado } }
         );
         await transactionManager.remove(usuário);
         return response.json();
@@ -208,8 +212,8 @@ export default class ServiçosUsuário {
   static async buscarQuestãoSegurança(request, response) {
     try {
       const cpf_encriptado = md5(request.params.cpf);
-      const usuário = await Usuário.findOne(cpf_encriptado);
-      if (usuário) return response.json({ questão: usuário.questão });
+      const usuário = await Usuário.findOne({ where: { cpf: cpf_encriptado } });
+      if (usuário) return response.json({ questao_seguranca: usuário.questao_seguranca });
       else return response.status(404).json({ mensagem: "CPF não cadastrado" });
     } catch (error) {
       return response
@@ -219,10 +223,10 @@ export default class ServiçosUsuário {
   }
   static async verificarRespostaCorreta(request, response) {
     try {
-      const { cpf, resposta } = request.body;
+      const { cpf, resposta_seguranca } = request.body;
       const cpf_encriptado = md5(cpf);
-      const usuário = await Usuário.findOne(cpf_encriptado);
-      const resposta_correta = await bcrypt.compare(resposta, usuário.resposta);
+      const usuário = await Usuário.findOne({ where: { cpf: cpf_encriptado } });
+      const resposta_correta = await bcrypt.compare(resposta_seguranca, usuário.resposta_seguranca);
       if (!resposta_correta)
         return response.status(401).json({ mensagem: "Resposta incorreta." });
       const token = sign(

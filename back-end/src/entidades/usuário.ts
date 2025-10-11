@@ -7,12 +7,12 @@ import {
   PrimaryColumn,
 } from "typeorm";
 
-import Maestro from "./maestro";
-import Patrocinador from "./patrocinador";
+import Criador from "./criador";
+import GerenteEmporio from "./gerente-emporio";
 
 export enum Perfil {
-  PATROCINADOR = "patrocinador",
-  MAESTRO = "maestro",
+  CRIADOR = "criador",
+  GERENTE_EMPORIO = "gerente_emporio",
 }
 
 export enum Status {
@@ -37,42 +37,45 @@ export enum Cores {
 
 @Entity()
 export default class Usuário extends BaseEntity {
-  @PrimaryColumn()
-  cpf: string;
-
-  @Column({ type: "enum", enum: Perfil })
-  perfil: Perfil;
-
-  @Column({ type: "enum", enum: Status, default: Status.PENDENTE })
-  status: Status;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   nome: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
+
+  @Column({ unique: true })
+  cpf: string;
 
   @Column()
   senha: string;
 
-  @Column()
-  questão: string;
+  @Column({ type: "enum", enum: Perfil })
+  perfil: Perfil;
 
-  @Column()
-  resposta: string;
+  @Column({ type: "enum", enum: Status, default: Status.ATIVO })
+  status: Status;
 
-  @Column({ type: "enum", enum: Cores })
+  @Column({ nullable: true })
+  questao_seguranca: string;
+
+  @Column({ nullable: true })
+  resposta_seguranca: string;
+
+  @Column({ type: "enum", enum: Cores, default: Cores.AZUL })
   cor_tema: string;
 
-  @OneToOne(() => Maestro, (maestro) => maestro.usuário, {
+  @OneToOne(() => Criador, (criador) => criador.usuario, {
     onDelete: "CASCADE",
   })
-  maestro: Maestro;
+  criador: Criador;
 
-  @OneToOne(() => Patrocinador, (patrocinador) => patrocinador.usuário, {
+  @OneToOne(() => GerenteEmporio, (gerente_emporio) => gerente_emporio.usuario, {
     onDelete: "CASCADE",
   })
-  patrocinador: Patrocinador;
+  gerente_emporio: GerenteEmporio;
 
   @CreateDateColumn()
   data_criação: Date;
