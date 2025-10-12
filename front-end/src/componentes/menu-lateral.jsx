@@ -71,6 +71,60 @@ export default function MenuLateral({ children }) {
     },
   ];
 
+  const opçõesCriador = [
+    { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+    {
+      label: "Menu",
+      items: [
+        {
+          label: "Cadastrar Usuário",
+          command: () => navegar("/atualizar-usuario"),
+          disabled: usuárioLogado.status !== "ativo",
+        },
+        {
+          label: "Cadastrar Criador",
+          command: () => navegar("/cadastrar-criador"),
+        },
+        {
+          label: "Gerenciar Cervejas",
+          command: () => navegar("/gerenciar-cervejas"),
+        },
+        {
+          label: "Encomendas Recebidas",
+          command: () => navegar("/encomendas-recebidas"),
+        },
+        { label: "Sair do Sistema", command: () => sairSistema() },
+      ],
+    },
+  ];
+
+  const opçõesGerenteEmporio = [
+    { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+    {
+      label: "Menu",
+      items: [
+        {
+          label: "Cadastrar Usuário",
+          command: () => navegar("/atualizar-usuario"),
+          disabled: usuárioLogado.status !== "ativo",
+        },
+        {
+          label: "Cadastrar Gerente de Emporio",
+          command: () => navegar("/cadastrar-gerente-emporio"),
+        },
+        {
+          label: "Catalogo de Cervejas",
+          command: () => navegar("/catalogo-cervejas"),
+        },
+        {
+          label: "Minhas Encomendas",
+          command: () => navegar("/minhas-encomendas"),
+        },
+        { label: "Sair do Sistema", command: () => sairSistema() },
+      ],
+    },
+  ];
+
   function sairSistema() {
     setUsuárioLogado({});
     navegar("/");
@@ -82,6 +136,10 @@ export default function MenuLateral({ children }) {
         return opçõesMaestro;
       case "patrocinador":
         return opçõesPatrocinador;
+      case "criador":
+        return opçõesCriador;
+      case "gerente_emporio":
+        return opçõesGerenteEmporio;
       default:
         return;
     }
