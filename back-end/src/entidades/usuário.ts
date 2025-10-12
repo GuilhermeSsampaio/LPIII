@@ -9,10 +9,14 @@ import {
 
 import Maestro from "./maestro";
 import Patrocinador from "./patrocinador";
+import Criador from "./criador";
+import GerenteEmporio from "./gerente-emporio";
 
 export enum Perfil {
   PATROCINADOR = "patrocinador",
   MAESTRO = "maestro",
+  CRIADOR = "criador",
+  GERENTE_EMPORIO = "gerente_emporio",
 }
 
 export enum Status {
@@ -73,6 +77,16 @@ export default class Usuário extends BaseEntity {
     onDelete: "CASCADE",
   })
   patrocinador: Patrocinador;
+
+  @OneToOne(() => Criador, (criador) => criador.usuário, {
+    onDelete: "CASCADE",
+  })
+  criador: Criador;
+
+  @OneToOne(() => GerenteEmporio, (gerente_emporio) => gerente_emporio.usuário, {
+    onDelete: "CASCADE",
+  })
+  gerente_emporio: GerenteEmporio;
 
   @CreateDateColumn()
   data_criação: Date;

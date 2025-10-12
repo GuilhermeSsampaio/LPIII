@@ -5,6 +5,8 @@ import { createConnection } from "typeorm";
 import RotasUsuário from "./rotas/rotas-usuário";
 import RotasMaestro from "./rotas/rotas-maestro";
 import RotasPatrocinador from "./rotas/rotas-patrocinador";
+import RotasCriador from "./rotas/rotas-criador";
+import RotasGerenteEmporio from "./rotas/rotas-gerente-emporio";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -15,6 +17,8 @@ app.use(express.json());
 app.use("/usuarios", RotasUsuário);
 app.use("/maestros", RotasMaestro);
 app.use("/patrocinadores", RotasPatrocinador);
+app.use("/criadores", RotasCriador);
+app.use("/gerentes-emporio", RotasGerenteEmporio);
 
 app.listen(PORT || 3333);
 const conexão = createConnection();

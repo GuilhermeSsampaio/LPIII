@@ -5,6 +5,8 @@ import { sign } from "jsonwebtoken";
 import Usuário, { Perfil } from "../entidades/usuário";
 import Maestro from "../entidades/maestro";
 import Patrocinador from "../entidades/patrocinador";
+import Criador from "../entidades/criador";
+import GerenteEmporio from "../entidades/gerente-emporio";
 import { getManager } from "typeorm";
 
 dotenv.config();
@@ -69,6 +71,20 @@ export default class ServiçosUsuário {
           relations: ["usuário"],
         });
         if (!patrocinador) return false;
+        return true;
+      case Perfil.CRIADOR:
+        const criador = await Criador.findOne({
+          where: { usuário: usuário.cpf },
+          relations: ["usuário"],
+        });
+        if (!criador) return false;
+        return true;
+      case Perfil.GERENTE_EMPORIO:
+        const gerente_emporio = await GerenteEmporio.findOne({
+          where: { usuário: usuário.cpf },
+          relations: ["usuário"],
+        });
+        if (!gerente_emporio) return false;
         return true;
       default:
         return;
