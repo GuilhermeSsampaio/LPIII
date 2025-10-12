@@ -74,6 +74,8 @@ export default function CadastrarUsuário() {
   const opçõesPerfis = [
     { label: "Maestro", value: "maestro" },
     { label: "Patrocinador", value: "patrocinador" },
+    { label: "Criador", value: "criador" },
+    { label: "Gerente de Emporio", value: "gerente_emporio" },
   ];
 
   function alterarEstado(event) {
