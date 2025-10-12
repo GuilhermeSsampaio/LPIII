@@ -32,7 +32,7 @@ import {
   estilizarLabel,
   estilizarCheckbox,
 } from "../../utilitários/estilos";
-import { desencriptarCpf } from "../../utilitários/máscaras";
+
 
 export default function CadastrarCerveja() {
   const referênciaToast = useRef(null);
@@ -74,7 +74,7 @@ export default function CadastrarCerveja() {
   async function cadastrarCerveja() {
     if (validarCampos()) {
       try {
-        const cpf = desencriptarCpf(usuárioLogado.cpf);
+        const cpf = usuárioLogado.cpf;
         const dadosAjustados = {
           ...dados,
           cpf,

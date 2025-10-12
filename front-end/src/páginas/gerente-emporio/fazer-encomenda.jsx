@@ -25,7 +25,7 @@ import {
   estilizarLabel,
   estilizarCheckbox,
 } from "../../utilitários/estilos";
-import { desencriptarCpf } from "../../utilitários/máscaras";
+
 
 export default function FazerEncomenda() {
   const referênciaToast = useRef(null);
@@ -74,7 +74,7 @@ export default function FazerEncomenda() {
           );
           return;
         }
-        const cpf = desencriptarCpf(usuárioLogado.cpf);
+        const cpf = usuárioLogado.cpf;
         const dadosAjustados = {
           ...dados,
           cerveja_artesanal_id: cervejaArtesanalSelecionada.id,

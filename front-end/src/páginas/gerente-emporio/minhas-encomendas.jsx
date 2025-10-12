@@ -12,7 +12,7 @@ import {
   serviçoRemoverEncomenda,
 } from "../../serviços/serviços-gerente-emporio";
 import mostrarToast from "../../utilitários/mostrar-toast";
-import { desencriptarCpf } from "../../utilitários/máscaras";
+
 import {
   estilizarBotão,
   estilizarBotãoRemover,
@@ -104,7 +104,7 @@ export default function MinhasEncomendas() {
 
   async function buscarEncomendas() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
+      const cpf = usuárioLogado.cpf;
       const response = await serviçoBuscarEncomendasGerenteEmporio(cpf);
       setListaEncomendas(response.data);
     } catch (error) {

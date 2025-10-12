@@ -9,7 +9,7 @@ import ContextoCriador from "../../contextos/contexto-criador";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import { serviçoBuscarCervejasArtesanaisCriador } from "../../serviços/serviços-criador";
 import mostrarToast from "../../utilitários/mostrar-toast";
-import { desencriptarCpf } from "../../utilitários/máscaras";
+
 import {
   estilizarBotão,
   estilizarBotãoRetornar,
@@ -62,7 +62,7 @@ export default function GerenciarCervejas() {
 
   async function buscarCervejas() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
+      const cpf = usuárioLogado.cpf;
       const response = await serviçoBuscarCervejasArtesanaisCriador(cpf);
       setListaCervejas(response.data);
     } catch (error) {

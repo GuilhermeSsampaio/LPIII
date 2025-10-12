@@ -8,7 +8,7 @@ import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import { serviçoBuscarEncomendasCriador } from "../../serviços/serviços-gerente-emporio";
 import mostrarToast from "../../utilitários/mostrar-toast";
-import { desencriptarCpf } from "../../utilitários/máscaras";
+
 import {
   estilizarBotãoRetornar,
   estilizarCard,
@@ -52,7 +52,7 @@ export default function EncomendasRecebidas() {
 
   async function buscarEncomendas() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
+      const cpf = usuárioLogado.cpf;
       const response = await serviçoBuscarEncomendasCriador(cpf);
       setListaEncomendas(response.data);
     } catch (error) {

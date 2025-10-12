@@ -24,7 +24,6 @@ import {
   estilizarInputText,
   estilizarLabel,
 } from "../../utilitários/estilos";
-import { desencriptarCpf } from "../../utilitários/máscaras";
 
 export default function CadastrarCriador() {
   const referênciaToast = useRef(null);
@@ -97,9 +96,8 @@ export default function CadastrarCriador() {
 
   async function atualizarCriador() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
       await serviçoAtualizarCriador({
-        cpf,
+        cpf: usuárioLogado.cpf,
         pais_origem: dados.pais_origem,
         ano_fundacao: parseInt(dados.ano_fundacao),
         estilo_cerveja_especializado: dados.estilo_cerveja_especializado,
@@ -119,8 +117,7 @@ export default function CadastrarCriador() {
 
   async function buscarDados() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
-      const response = await serviçoBuscarCriador(cpf);
+      const response = await serviçoBuscarCriador(usuárioLogado.cpf);
       const criador = response.data;
       setDados({
         pais_origem: criador.pais_origem,

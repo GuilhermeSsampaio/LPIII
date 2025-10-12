@@ -24,7 +24,7 @@ import {
   estilizarInputText,
   estilizarLabel,
 } from "../../utilitários/estilos";
-import { desencriptarCpf } from "../../utilitários/máscaras";
+
 
 export default function CadastrarGerenteEmporio() {
   const referênciaToast = useRef(null);
@@ -97,7 +97,7 @@ export default function CadastrarGerenteEmporio() {
 
   async function atualizarGerenteEmporio() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
+      const cpf = usuárioLogado.cpf;
       await serviçoAtualizarGerenteEmporio({
         cpf,
         telefone: dados.telefone,
@@ -119,7 +119,7 @@ export default function CadastrarGerenteEmporio() {
 
   async function buscarDados() {
     try {
-      const cpf = desencriptarCpf(usuárioLogado.cpf);
+      const cpf = usuárioLogado.cpf;
       const response = await serviçoBuscarGerenteEmporio(cpf);
       const gerenteEmporio = response.data;
       setDados({
