@@ -4,6 +4,10 @@ export default function formatarPerfil(perfil) {
       return "Maestro";
     case "patrocinador":
       return "Patrocinador";
+    case "criador":
+      return "Criador";
+    case "gerente_emporio":
+      return "Gerente de Empório";
     default:
       return;
   }
